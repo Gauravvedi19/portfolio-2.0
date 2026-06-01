@@ -44,7 +44,7 @@ export default function Scene5Products() {
   const rotate2 = useTransform(scrollYProgress, [0, 1], [-45, 45]);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-background pb-32 overflow-hidden z-10">
+    <section ref={containerRef} className="relative w-full pb-32 overflow-hidden z-10">
       {/* Background Parallax Elements */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
         {/* Simplified Background */}
@@ -131,19 +131,19 @@ const POSTCARD_MOCKUPS = [
     id: 'brand',
     title: '“Your world, through fresh eyes.”',
     desc: 'Designed to make exploration feel emotional, personal, and community-driven from the very first interaction. This screen establishes the product identity and visual language.',
-    image: '/Mockups/postcard-welcome.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/postcard-welcome.png' // REPLACE WITH ACTUAL IMAGE
   },
   {
     id: 'discover',
     title: '“Discover hidden gems.”',
     desc: 'Explore unique places shared by real people — from cafés and scenic spots to experiences traditional maps miss. Built around exploration and meaningful discovery.',
-    image: '/Mockups/postcard-discover.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/postcard-discover.png' // REPLACE WITH ACTUAL IMAGE
   },
   {
     id: 'share',
     title: '“Share discoveries worth remembering.”',
     desc: 'Users can share experiences, contribute discoveries, and help others explore authentically. Community is the foundation of the product.',
-    image: '/Mockups/postcard-share.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/postcard-share.png' // REPLACE WITH ACTUAL IMAGE
   }
 ];
 
