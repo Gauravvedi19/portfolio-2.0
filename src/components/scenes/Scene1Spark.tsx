@@ -14,11 +14,15 @@ export default function Scene1Spark() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
+  const heroPointerEvents = useTransform(scrollYProgress, (v) => v > 0.3 ? "none" : "auto");
+  const heroVisibility = useTransform(scrollYProgress, (v) => v > 0.3 ? "hidden" : "visible");
 
   // Philosophy (After Hero)
   const phiOpacity = useTransform(scrollYProgress, [0.3, 0.5, 0.7, 0.9], [0, 1, 1, 0]);
   const phiY = useTransform(scrollYProgress, [0.3, 0.9], [40, -40]);
   const phiScale = useTransform(scrollYProgress, [0.3, 0.9], [0.95, 1.05]);
+  const phiPointerEvents = useTransform(scrollYProgress, (v) => v > 0.3 && v < 0.9 ? "auto" : "none");
+  const phiVisibility = useTransform(scrollYProgress, (v) => v > 0.3 && v < 0.9 ? "visible" : "hidden");
 
   // Subtle fragments for philosophy
   const frag1Y = useTransform(scrollYProgress, [0.3, 0.9], [80, -80]);
@@ -45,35 +49,62 @@ export default function Scene1Spark() {
 
         {/* Part 1: Hero (Immediate) */}
         <motion.div 
-          style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}
+          style={{ 
+            opacity: heroOpacity, 
+            y: heroY, 
+            scale: heroScale,
+            pointerEvents: heroPointerEvents as any,
+            visibility: heroVisibility as any
+          }}
           className="absolute inset-0 flex flex-col items-center justify-center max-w-5xl mx-auto text-center px-6"
         >
-          <p className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-8 font-medium animate-fade-rise">
+          <motion.p 
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-8 font-medium"
+          >
             CSE Student • Product Designer • Builder
-          </p>
-          <h1 className="font-display text-[40px] sm:text-[60px] md:text-[88px] leading-[0.92] tracking-[-0.03em] font-normal text-white text-balance animate-fade-rise-delay">
+          </motion.p>
+          <motion.h1 
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+            className="font-display text-[40px] sm:text-[60px] md:text-[88px] leading-[0.92] tracking-[-0.03em] font-normal text-white text-balance"
+          >
             Designing and building products from <br/>
             <span className="italic text-white/60 block mt-2">chaos to clarity.</span>
-          </h1>
-          <div className="mt-14 animate-fade-rise-delay-2 flex flex-col items-center">
+          </motion.h1>
+          <motion.div 
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+            className="mt-14 flex flex-col items-center"
+          >
             <span className="text-[10px] uppercase tracking-widest font-mono text-white/20 mb-4 animate-pulse">Scroll to explore</span>
             <div className="w-[1px] h-16 bg-gradient-to-b from-white/20 to-transparent mx-auto" />
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Part 2: Philosophy */}
         <motion.div 
-          style={{ opacity: phiOpacity, y: phiY, scale: phiScale }}
+          style={{ 
+            opacity: phiOpacity, 
+            y: phiY, 
+            scale: phiScale,
+            pointerEvents: phiPointerEvents as any,
+            visibility: phiVisibility as any
+          }}
           className="absolute inset-0 flex items-center justify-center"
         >
           {/* Subtle problem fragments */}
-          <motion.div style={{ y: frag1Y }} className="absolute left-[15%] top-[30%] opacity-20 font-mono text-[10px] uppercase tracking-widest text-white blur-[0.5px]">
+          <motion.div style={{ y: frag1Y }} className="absolute left-[15%] top-[30%] opacity-20 font-mono text-[10px] uppercase tracking-widest text-white transform-gpu">
             user_retention &lt; 30%
           </motion.div>
-          <motion.div style={{ y: frag2Y }} className="absolute right-[15%] bottom-[25%] opacity-20 font-display text-3xl text-white italic blur-[1px]">
+          <motion.div style={{ y: frag2Y }} className="absolute right-[15%] bottom-[25%] opacity-20 font-display text-3xl text-white italic transform-gpu">
             too much friction...
           </motion.div>
-          <motion.div style={{ y: frag3Y }} className="absolute left-[25%] bottom-[20%] opacity-10 font-mono text-[11px] text-white blur-[0.5px]">
+          <motion.div style={{ y: frag3Y }} className="absolute left-[25%] bottom-[20%] opacity-10 font-mono text-[11px] text-white transform-gpu">
             // edge case not handled
           </motion.div>
           
