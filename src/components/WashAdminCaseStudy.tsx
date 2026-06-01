@@ -245,21 +245,21 @@ const CUSTOMER_MOCKUPS = [
     title: 'Smart Wash Tracking',
     summary: 'Monitor active washes in real time.',
     desc: 'Customers can monitor active washes in real time, view assigned bays, and track estimated completion time through a seamless tracking interface.',
-    image: '/washadmin-mobile-home.png'
+    image: '/Mockups/washadmin-mobile-home.png'
   },
   {
     id: '02',
     title: 'Subscription Commerce',
     summary: 'Integrated subscription plans.',
     desc: 'Integrated subscription system with Razorpay payments for recurring customer plans, enabling seamless auto-renewals.',
-    image: '/washadmin-mobile-plans.png'
+    image: '/Mockups/washadmin-mobile-plans.png'
   },
   {
     id: '03',
     title: 'Wash History & Feedback',
     summary: 'Maintain service history.',
     desc: 'Customers can view completed washes, maintain service history, and provide instant feedback on wash quality.',
-    image: '/washadmin-mobile-history.png'
+    image: '/Mockups/washadmin-mobile-history.png'
   }
 ];
 

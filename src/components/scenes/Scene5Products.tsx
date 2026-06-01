@@ -131,19 +131,19 @@ const POSTCARD_MOCKUPS = [
     id: 'brand',
     title: '“Your world, through fresh eyes.”',
     desc: 'Designed to make exploration feel emotional, personal, and community-driven from the very first interaction. This screen establishes the product identity and visual language.',
-    image: '/postcard-welcome.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/Mockups/postcard-welcome.png' // REPLACE WITH ACTUAL IMAGE
   },
   {
     id: 'discover',
     title: '“Discover hidden gems.”',
     desc: 'Explore unique places shared by real people — from cafés and scenic spots to experiences traditional maps miss. Built around exploration and meaningful discovery.',
-    image: '/postcard-discover.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/Mockups/postcard-discover.png' // REPLACE WITH ACTUAL IMAGE
   },
   {
     id: 'share',
     title: '“Share discoveries worth remembering.”',
     desc: 'Users can share experiences, contribute discoveries, and help others explore authentically. Community is the foundation of the product.',
-    image: '/postcard-share.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/Mockups/postcard-share.png' // REPLACE WITH ACTUAL IMAGE
   }
 ];
 

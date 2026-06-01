@@ -91,19 +91,19 @@ const CUSTOMER_MOCKUPS = [
     id: 'home',
     title: 'Smart Booking & Emergency',
     desc: 'Dynamic slot management with capacity awareness and an emergency booking system that inserts urgent patients directly into the priority queue.',
-    image: '/clinko-mobile-booking.png'
+    image: '/Mockups/clinko-mobile-booking.png'
   },
   {
     id: 'queue',
     title: 'Live Queue Tracking',
     desc: 'Patients receive their live queue position, token number, and dynamically estimated waiting time directly on their device.',
-    image: '/clinko-mobile-queue.png'
+    image: '/Mockups/clinko-mobile-queue.png'
   },
   {
     id: 'reminders',
     title: 'My Care & AI Auto-Reminders',
     desc: 'Human-validated AI prescriptions automatically translate into structured daily medication reminders for patients without any manual setup.',
-    image: '/clinko-mobile-reminders.png'
+    image: '/Mockups/clinko-mobile-reminders.png'
   }
 ];
 
