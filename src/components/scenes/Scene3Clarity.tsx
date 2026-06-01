@@ -43,7 +43,7 @@ export default function Scene3Clarity() {
   const rotate2 = useTransform(scrollYProgress, [0, 1], [-45, 0]);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-background border-t border-white/[0.02] py-32 md:py-48 z-10 overflow-hidden">
+    <section ref={containerRef} className="relative w-full border-t border-white/[0.02] py-32 md:py-48 z-10 overflow-hidden">
       
       <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/5 to-transparent z-10" />
