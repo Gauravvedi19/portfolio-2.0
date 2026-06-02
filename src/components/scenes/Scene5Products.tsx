@@ -4,6 +4,8 @@ import { Play, ArrowRight, X, Info, Plus } from 'lucide-react';
 import WashAdminCaseStudy from '../WashAdminCaseStudy';
 import ClinkoCaseStudy from './ClinkoCaseStudy';
 
+import ProjectCivicCaseStudy from './ProjectCivicCaseStudy';
+
 const VideoPlayer = React.forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLVideoElement>>(({ src, className, onLoadedData, ...props }, ref) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -44,7 +46,7 @@ export default function Scene5Products() {
   const rotate2 = useTransform(scrollYProgress, [0, 1], [-45, 45]);
 
   return (
-    <section ref={containerRef} className="relative w-full bg-background pb-32 overflow-hidden z-10">
+    <section ref={containerRef} className="relative w-full pb-32 overflow-hidden z-10">
       {/* Background Parallax Elements */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
         {/* Simplified Background */}
@@ -120,6 +122,7 @@ export default function Scene5Products() {
           )}
           <WashAdminCaseStudy />
           <ClinkoCaseStudy />
+          <ProjectCivicCaseStudy />
         </div>
       </div>
     </section>
@@ -131,19 +134,19 @@ const POSTCARD_MOCKUPS = [
     id: 'brand',
     title: '“Your world, through fresh eyes.”',
     desc: 'Designed to make exploration feel emotional, personal, and community-driven from the very first interaction. This screen establishes the product identity and visual language.',
-    image: '/Mockups/postcard-welcome.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/postcard-welcome.png' // REPLACE WITH ACTUAL IMAGE
   },
   {
     id: 'discover',
     title: '“Discover hidden gems.”',
     desc: 'Explore unique places shared by real people — from cafés and scenic spots to experiences traditional maps miss. Built around exploration and meaningful discovery.',
-    image: '/Mockups/postcard-discover.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/postcard-discover.png' // REPLACE WITH ACTUAL IMAGE
   },
   {
     id: 'share',
     title: '“Share discoveries worth remembering.”',
     desc: 'Users can share experiences, contribute discoveries, and help others explore authentically. Community is the foundation of the product.',
-    image: '/Mockups/postcard-share.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/postcard-share.png' // REPLACE WITH ACTUAL IMAGE
   }
 ];
 
@@ -178,8 +181,8 @@ function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience
             <span className="text-[10px] font-mono uppercase tracking-[0.3em] font-medium text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/20">
               Flagship Product
             </span>
-            <span className="text-[10px] uppercase font-mono tracking-widest text-[#a1a1aa]">
-              Community-Driven Discovery Platform
+            <span className="text-[10px] font-mono uppercase tracking-[0.3em] font-medium text-blue-400 bg-blue-400/10 px-3 py-1 rounded-full border border-blue-400/20">
+              Live on Play Store
             </span>
           </div>
           
@@ -230,10 +233,17 @@ function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience
             className="group relative px-6 py-3 bg-white text-black font-medium text-sm rounded-full overflow-hidden transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
             <span className="relative z-10 flex items-center gap-2">
-              View Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Get on Play Store <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </span>
             <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
           </a>
+
+          <button
+            disabled
+            className="px-6 py-3 bg-white/[0.03] border border-white/[0.1] text-white/40 font-medium text-sm rounded-full cursor-not-allowed flex items-center gap-2"
+          >
+            App Store (Soon)
+          </button>
           
           <button
             onClick={() => {

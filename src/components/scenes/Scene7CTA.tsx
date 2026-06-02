@@ -6,14 +6,14 @@ export default function Scene7CTA() {
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end end"]
+    offset: ["start 95%", "start 40%"]
   });
 
-  const sectionOpacity = useTransform(scrollYProgress, [0.4, 0.8], [0, 1]);
-  const yMove = useTransform(scrollYProgress, [0.4, 0.8], [100, 0]);
+  const sectionOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const yMove = useTransform(scrollYProgress, [0, 1], [100, 0]);
 
   return (
-    <section ref={containerRef} className="relative h-[120vh] w-full bg-[#040a1a] flex flex-col items-center justify-center border-t border-white/[0.05]">
+    <section ref={containerRef} className="relative min-h-screen py-32 w-full flex flex-col items-center justify-center border-t border-white/[0.05]">
       {/* Background premium glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.02)_0%,transparent_70%)] pointer-events-none" />
 

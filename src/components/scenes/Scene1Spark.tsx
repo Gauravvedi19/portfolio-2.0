@@ -1,9 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import StarBackground from '../StarBackground';
+import { ContactModal } from '../ContactModal';
 
 export default function Scene1Spark() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -42,10 +44,12 @@ export default function Scene1Spark() {
           <div className="font-display text-2xl sm:text-3xl tracking-tight text-white flex items-baseline">
             Gaurav Vedi<span className="text-[10px] align-top ml-0.5 opacity-60">®</span>
           </div>
-          <a href="mailto:gaurav.vedi2003@gmail.com" className="glass-btn px-6 py-2.5 rounded-full text-xs uppercase tracking-widest font-medium text-white transition-colors cursor-pointer hidden sm:block">
+          <button onClick={() => setIsContactModalOpen(true)} className="glass-btn px-6 py-2.5 rounded-full text-xs uppercase tracking-widest font-medium text-white transition-colors cursor-pointer hidden sm:block">
             Build With Me
-          </a>
+          </button>
         </motion.nav>
+
+        <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
 
         {/* Part 1: Hero (Immediate) */}
         <motion.div 
