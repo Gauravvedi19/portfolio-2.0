@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { Play, ArrowRight, ArrowDown, X, Maximize2, Plus } from 'lucide-react';
+import { ProjectModal } from './ProjectModal';
 
 const VideoPlayer = React.forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLVideoElement>>(({ src, className, onLoadedData, ...props }, ref) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -70,6 +71,7 @@ export default function WashAdminCaseStudy() {
 function HeroSection({ onShowProductExperience }: { onShowProductExperience?: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -143,7 +145,7 @@ function HeroSection({ onShowProductExperience }: { onShowProductExperience?: ()
 
         {/* CTA Buttons */}
         <div className="flex flex-wrap items-center gap-4 pt-4">
-          <button className="group relative px-6 py-3 bg-white text-black font-medium text-sm rounded-full overflow-hidden transition-transform hover:scale-[1.02] active:scale-[0.98]">
+          <button onClick={() => setIsModalOpen(true)} className="group relative px-6 py-3 bg-white text-black font-medium text-sm rounded-full overflow-hidden transition-transform hover:scale-[1.02] active:scale-[0.98]">
             <span className="relative z-10 flex items-center gap-2">
               View Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </span>
@@ -165,6 +167,19 @@ function HeroSection({ onShowProductExperience }: { onShowProductExperience?: ()
             <Play className="w-4 h-4 text-white/70" /> Product Experience
           </button>
         </div>
+
+          <ProjectModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            title="WashAdmin"
+            links={{
+              github: "#",
+              portal: "#",
+              demoEmail: "demo@carwash.com",
+              demoPassword: "12345678",
+              appDownload: "#",
+            }}
+          />
       </div>
 
       {/* RIGHT SIDE — HERO PRODUCT EXPERIENCE */}
