@@ -305,23 +305,23 @@ function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience
 
 function PhoneMockup({ imageSrc, isActive = false }: { imageSrc: string, isActive?: boolean }) {
   return (
-    <div className="relative w-[220px] sm:w-[280px] xl:w-[320px] aspect-[1/2.16] rounded-[2.5rem] p-[6px] shadow-2xl transition-all duration-500 transform-gpu bg-gradient-to-br from-zinc-700 via-zinc-900 to-black group-hover:ring-white/30">
+    <div className="relative w-[220px] sm:w-[280px] xl:w-[320px] aspect-[1/2.16] rounded-[2.5rem] p-[6px] shadow-2xl transition-all duration-500 transform-gpu bg-gradient-to-br from-zinc-700 via-zinc-900 to-black group-hover:ring-white/30 will-change-transform">
       {/* Screen Content Wrapper */}
-      <div className="relative w-full h-full rounded-[2.1rem] overflow-hidden bg-black z-20 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]" style={{ transform: "translateZ(0)", WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}>
+      <div className="relative w-full h-full rounded-[2.1rem] overflow-hidden bg-black z-20 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] transform-gpu" style={{ transform: "translateZ(0)" }}>
         <img 
           src={imageSrc} 
           alt="App Mockup" 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02] transform-gpu will-change-transform"
           onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0'; }}
         />
       </div>
 
       {/* Titanium reflection overlay */}
-      <div className={`absolute inset-0 rounded-[2.5rem] border border-white/20 pointer-events-none z-30 transition-all duration-500 bg-gradient-to-tr from-white/10 to-transparent ${isActive ? 'opacity-100 ring-1 ring-white/20' : 'opacity-40'} mix-blend-overlay`} style={{ transform: "translateZ(0)", WebkitMaskImage: '-webkit-radial-gradient(white, black)' }} />
-      <div className="absolute inset-[6px] ring-1 ring-inset ring-white/15 rounded-[2.1rem] z-40 pointer-events-none" />
+      <div className={`absolute inset-0 rounded-[2.5rem] border border-white/20 pointer-events-none z-30 transition-all duration-500 bg-gradient-to-tr from-white/10 to-transparent ${isActive ? 'opacity-100 ring-1 ring-white/20' : 'opacity-40'} transform-gpu`} />
+      <div className="absolute inset-[6px] ring-1 ring-inset ring-white/15 rounded-[2.1rem] z-40 pointer-events-none transform-gpu" />
 
       {/* Notch */}
-      <div className="absolute top-[6px] inset-x-0 h-[22px] flex justify-center z-40 pointer-events-none">
+      <div className="absolute top-[6px] inset-x-0 h-[22px] flex justify-center z-40 pointer-events-none transform-gpu">
         <div className="w-[35%] h-full bg-black rounded-b-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.5)] flex justify-center items-center gap-2">
           {/* Camera lens reflection */}
           <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/20 shadow-[inset_0_0_2px_rgba(255,255,255,0.5)]" />
@@ -329,7 +329,7 @@ function PhoneMockup({ imageSrc, isActive = false }: { imageSrc: string, isActiv
       </div>
       
       {/* Outer Glow */}
-      <div className={`absolute inset-[-10%] bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.15),transparent_70%)] blur-xl -z-10 rounded-[3rem] transition-all duration-700 ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`} />
+      <div className={`absolute inset-[-20%] bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.15),transparent_60%)] -z-10 rounded-[3rem] transition-all duration-700 transform-gpu ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`} />
     </div>
   );
 }
