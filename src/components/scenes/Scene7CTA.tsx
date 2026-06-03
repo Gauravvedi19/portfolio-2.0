@@ -1,12 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { ContactModal } from '../ContactModal';
 
 export default function Scene7CTA() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 95%", "start 40%"]
+    offset: ["start 90%", "start 50%"]
   });
 
   const sectionOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
@@ -42,9 +44,9 @@ export default function Scene7CTA() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a href="mailto:gaurav.vedi2003@gmail.com" className="bg-white text-black px-12 py-5 rounded-full text-sm font-medium hover:scale-[1.03] transition-transform shadow-2xl shadow-white/10 cursor-pointer inline-block">
+          <button onClick={() => setIsContactModalOpen(true)} className="bg-white text-black px-12 py-5 rounded-full text-sm font-medium hover:scale-[1.03] transition-transform shadow-2xl shadow-white/10 cursor-pointer inline-block">
             Start a conversation
-          </a>
+          </button>
         </div>
       </motion.div>
 
@@ -62,6 +64,8 @@ export default function Scene7CTA() {
           <span className="text-white/60">Portfolio {new Date().getFullYear()}</span>
         </div>
       </motion.div>
+      
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </section>
   );
 }

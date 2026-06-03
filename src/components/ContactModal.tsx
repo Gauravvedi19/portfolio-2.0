@@ -37,7 +37,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
             <div className="space-y-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/in/gaurav-vedi2003"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 w-full p-4 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05] rounded-xl text-white transition-colors group"
@@ -52,7 +52,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </a>
 
               <a
-                href="#"
+                href="https://github.com/Gauravvedi19"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 w-full p-4 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05] rounded-xl text-white transition-colors group"

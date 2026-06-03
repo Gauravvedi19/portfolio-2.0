@@ -134,19 +134,19 @@ const POSTCARD_MOCKUPS = [
     id: 'brand',
     title: '“Your world, through fresh eyes.”',
     desc: 'Designed to make exploration feel emotional, personal, and community-driven from the very first interaction. This screen establishes the product identity and visual language.',
-    image: '/postcard-welcome.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/Mockups/postcard-welcome.png' // REPLACE WITH ACTUAL IMAGE
   },
   {
     id: 'discover',
     title: '“Discover hidden gems.”',
     desc: 'Explore unique places shared by real people — from cafés and scenic spots to experiences traditional maps miss. Built around exploration and meaningful discovery.',
-    image: '/postcard-discover.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/Mockups/postcard-discover.png' // REPLACE WITH ACTUAL IMAGE
   },
   {
     id: 'share',
     title: '“Share discoveries worth remembering.”',
     desc: 'Users can share experiences, contribute discoveries, and help others explore authentically. Community is the foundation of the product.',
-    image: '/postcard-share.png' // REPLACE WITH ACTUAL IMAGE
+    image: '/Mockups/postcard-share.png' // REPLACE WITH ACTUAL IMAGE
   }
 ];
 
@@ -269,7 +269,7 @@ function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience
         <motion.div 
           style={{ y: sidePhonesY }}
           onClick={() => setActiveIndex(1)}
-          className={`absolute left-[5%] sm:left-[10%] xl:left-0 z-20 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu
+          className={`absolute left-[5%] sm:left-[10%] xl:left-0 z-20 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
             ${activeIndex === 1 ? 'scale-[0.85] z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[-4deg]' : 'scale-[0.75] rotate-[-8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[-6deg]'}
           `}
         >
@@ -280,7 +280,7 @@ function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience
         <motion.div 
           style={{ y: sidePhonesY }}
           onClick={() => setActiveIndex(2)}
-          className={`absolute right-[5%] sm:right-[10%] xl:right-0 z-20 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu
+          className={`absolute right-[5%] sm:right-[10%] xl:right-0 z-20 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
             ${activeIndex === 2 ? 'scale-[0.85] z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[4deg]' : 'scale-[0.75] rotate-[8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[6deg]'}
           `}
         >
@@ -291,7 +291,7 @@ function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience
         <motion.div 
           style={{ y: centerPhoneY }}
           onClick={() => setActiveIndex(0)}
-          className={`absolute z-30 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu
+          className={`absolute z-30 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
             ${activeIndex === 0 ? 'scale-100 brightness-110 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rotate-0 translate-y-0' : 'scale-90 brightness-[0.7] hover:brightness-[0.9] hover:-translate-y-2'}
           `}
         >
@@ -305,33 +305,31 @@ function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience
 
 function PhoneMockup({ imageSrc, isActive = false }: { imageSrc: string, isActive?: boolean }) {
   return (
-    <div className="relative w-[220px] sm:w-[280px] xl:w-[320px] aspect-[1/2.16] rounded-[2.5rem] bg-zinc-950 border-[6px] border-zinc-900 overflow-hidden shadow-2xl ring-1 ring-white/10 group-hover:ring-white/30 transition-all duration-500">
-      {/* Notch */}
-      <div className="absolute top-0 inset-x-0 h-7 flex justify-center z-50">
-        <div className="w-[40%] h-6 bg-zinc-900 rounded-b-3xl" />
-      </div>
-      
-      {/* Image Content */}
-      <div className="absolute inset-0 bg-zinc-900 flex items-center justify-center overflow-hidden">
-        {/* Placeholder if image breaks or is missing */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-20">
-           <span className="font-mono text-xs">img_missing</span>
-        </div>
-        
-        {/* Replace with actual imported images if needed. For now assuming they exist in public/ wrapper */}
+    <div className="relative w-[220px] sm:w-[280px] xl:w-[320px] aspect-[1/2.16] rounded-[2.5rem] p-[6px] shadow-2xl transition-all duration-500 transform-gpu bg-gradient-to-br from-zinc-700 via-zinc-900 to-black group-hover:ring-white/30">
+      {/* Screen Content Wrapper */}
+      <div className="relative w-full h-full rounded-[2.1rem] overflow-hidden bg-black z-20 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]" style={{ transform: "translateZ(0)", WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}>
         <img 
           src={imageSrc} 
           alt="App Mockup" 
-          className="absolute inset-0 w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-[1.02]"
-          onError={(e) => {
-            // Hide broken image icon, fallback to placeholder background
-            (e.target as HTMLImageElement).style.opacity = '0';
-          }}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+          onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0'; }}
         />
       </div>
 
-      {/* Screen Reflection Overlay */}
-      <div className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/[0.05] to-white/[0.15] z-20 pointer-events-none transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-50 group-hover:opacity-100'}`} />
+      {/* Titanium reflection overlay */}
+      <div className={`absolute inset-0 rounded-[2.5rem] border border-white/20 pointer-events-none z-30 transition-all duration-500 bg-gradient-to-tr from-white/10 to-transparent ${isActive ? 'opacity-100 ring-1 ring-white/20' : 'opacity-40'} mix-blend-overlay`} style={{ transform: "translateZ(0)", WebkitMaskImage: '-webkit-radial-gradient(white, black)' }} />
+      <div className="absolute inset-[6px] ring-1 ring-inset ring-white/15 rounded-[2.1rem] z-40 pointer-events-none" />
+
+      {/* Notch */}
+      <div className="absolute top-[6px] inset-x-0 h-[22px] flex justify-center z-40 pointer-events-none">
+        <div className="w-[35%] h-full bg-black rounded-b-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.5)] flex justify-center items-center gap-2">
+          {/* Camera lens reflection */}
+          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/20 shadow-[inset_0_0_2px_rgba(255,255,255,0.5)]" />
+        </div>
+      </div>
+      
+      {/* Outer Glow */}
+      <div className={`absolute inset-[-10%] bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.15),transparent_70%)] blur-xl -z-10 rounded-[3rem] transition-all duration-700 ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`} />
     </div>
   );
 }

@@ -202,11 +202,11 @@ function HeroSection({ isExperienceOpen, onToggleExperience }: { isExperienceOpe
             onClose={() => setIsModalOpen(false)}
              title="Clinko"
              links={{
-               github: "#",
-               portal: "#",
+               github: "https://github.com/Gauravvedi19/clinic_management_app-dev.git",
+               portal: "https://clinic-management-portal-vert.vercel.app/",
                demoEmail: "demo@clinicmanagement.com",
                demoPassword: "12345678",
-               appDownload: "#",
+               appDownload: "https://drive.google.com/file/d/1_-8pBMDgmE1JCmh-u6UyeeG0P_tBZOtE/view?usp=sharing",
              }}
            />
       </div>
@@ -218,7 +218,7 @@ function HeroSection({ isExperienceOpen, onToggleExperience }: { isExperienceOpe
         <motion.div 
           style={{ y: sidePhonesY }}
           onClick={() => setActiveIndex(2)}
-          className={`absolute left-[5%] sm:left-[10%] xl:left-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu
+          className={`absolute left-[5%] sm:left-[10%] xl:left-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
             ${activeIndex === 2 ? 'scale-100 z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[-4deg] hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.85] z-20 rotate-[-8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[-6deg] hover:scale-[0.88]'}
           `}
         >
@@ -229,7 +229,7 @@ function HeroSection({ isExperienceOpen, onToggleExperience }: { isExperienceOpe
         <motion.div 
           style={{ y: sidePhonesY }}
           onClick={() => setActiveIndex(1)}
-          className={`absolute right-[5%] sm:right-[10%] xl:right-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu
+          className={`absolute right-[5%] sm:right-[10%] xl:right-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
             ${activeIndex === 1 ? 'scale-100 z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[4deg] hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.85] z-20 rotate-[8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[6deg] hover:scale-[0.88]'}
           `}
         >
@@ -240,7 +240,7 @@ function HeroSection({ isExperienceOpen, onToggleExperience }: { isExperienceOpe
         <motion.div 
           style={{ y: centerPhoneY }}
           onClick={() => setActiveIndex(0)}
-          className={`absolute transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu
+          className={`absolute transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
             ${activeIndex === 0 ? 'scale-100 z-40 brightness-110 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rotate-0 hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.9] z-30 brightness-[0.8] hover:brightness-100 hover:scale-[0.95] rotate-0'}
           `}
         >
@@ -254,31 +254,31 @@ function HeroSection({ isExperienceOpen, onToggleExperience }: { isExperienceOpe
 
 function PhoneMockup({ imageSrc, isActive }: { imageSrc: string, isActive: boolean }) {
   return (
-    <div className={`relative w-[220px] sm:w-[260px] xl:w-[280px] aspect-[1/2.16] rounded-[2.5rem] bg-zinc-950 border-[6px] border-zinc-900 overflow-hidden shadow-2xl transition-all duration-500
-      ${isActive ? 'ring-1 ring-white/20' : 'ring-1 ring-white/5 group-hover:ring-white/20'}
-    `}>
-      <div className="absolute top-0 inset-x-0 h-6 flex justify-center z-50">
-        <div className="w-[40%] h-5 bg-zinc-900 rounded-b-2xl shadow-sm" />
-      </div>
-      
-      {/* Hardware Reflection */}
-      <div className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/[0.03] to-white/[0.12] z-20 pointer-events-none rounded-[2rem] transition-opacity duration-500
-        ${isActive ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}
-      `} />
-      <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[2rem] z-20 pointer-events-none" />
-
-      {/* Screen Content */}
-      <div className="absolute inset-0 bg-zinc-900 flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-20">
-          <span className="font-mono text-xs">img_missing</span>
-        </div>
+    <div className="relative w-[220px] sm:w-[260px] xl:w-[280px] aspect-[1/2.16] rounded-[2.5rem] p-[6px] shadow-2xl transition-all duration-500 transform-gpu bg-gradient-to-br from-zinc-700 via-zinc-900 to-black">
+      {/* Screen Content Wrapper */}
+      <div className="relative w-full h-full rounded-[2.1rem] overflow-hidden bg-black z-20 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]" style={{ transform: "translateZ(0)", WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}>
         <img 
           src={imageSrc} 
           alt="Mockup"
-          className="absolute inset-0 w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-[1.02]"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
           onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0'; }}
         />
       </div>
+
+      {/* Titanium reflection overlay */}
+      <div className={`absolute inset-0 rounded-[2.5rem] border border-white/20 pointer-events-none z-30 transition-all duration-500 bg-gradient-to-tr from-white/10 to-transparent ${isActive ? 'opacity-100 ring-1 ring-white/20' : 'opacity-40'} mix-blend-overlay`} style={{ transform: "translateZ(0)", WebkitMaskImage: '-webkit-radial-gradient(white, black)' }} />
+      <div className="absolute inset-[6px] ring-1 ring-inset ring-white/15 rounded-[2.1rem] z-40 pointer-events-none" />
+
+      {/* Notch */}
+      <div className="absolute top-[6px] inset-x-0 h-[22px] flex justify-center z-40 pointer-events-none">
+        <div className="w-[35%] h-full bg-black rounded-b-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.5)] flex justify-center items-center gap-2">
+          {/* Camera lens reflection */}
+          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/20 shadow-[inset_0_0_2px_rgba(255,255,255,0.5)]" />
+        </div>
+      </div>
+      
+      {/* Outer Glow */}
+      <div className={`absolute inset-[-10%] bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.15),transparent_70%)] blur-xl -z-10 rounded-[3rem] transition-all duration-700 ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`} />
     </div>
   );
 }

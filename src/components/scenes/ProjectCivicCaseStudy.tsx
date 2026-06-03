@@ -18,23 +18,24 @@ export default function ProjectCivicCaseStudy() {
 }
 
 const CUSTOMER_MOCKUPS = [
-  {
-    id: 'map',
-    title: 'Interactive Civic Map Screen',
-    desc: 'Showing issue markers with severity-based custom markers on a Mapbox-powered map.',
-    image: '/civic-mobile-map.png'
-  },
+  
   {
     id: 'feed',
     title: 'Issue Reporting Feed / Homepage',
     desc: 'Showing civic reports sorted by severity and recency with community engagement.',
-    image: '/civic-mobile-feed.png'
+    image: '/Mockups/civic-mobile-feed.png'
+  },
+  {
+    id: 'map',
+    title: 'Interactive Civic Map Screen',
+    desc: 'Showing issue markers with severity-based custom markers on a Mapbox-powered map.',
+    image: '/Mockups/civic-mobile-map.png'
   },
   {
     id: 'dashboard',
     title: 'MLA / Representative Score Dashboard',
     desc: 'Showing public representative performance score, resolution metrics, and accountability ranking.',
-    image: '/civic-mobile-dashboard.png'
+    image: '/Mockups/civic-mobile-dashboard.png'
   }
 ];
 
@@ -158,7 +159,7 @@ function HeroSection() {
         <motion.div 
           style={{ y: sidePhonesY }}
           onClick={() => setActiveIndex(2)}
-          className={`absolute left-[5%] sm:left-[10%] xl:left-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu
+          className={`absolute left-[5%] sm:left-[10%] xl:left-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.25rem]
             ${activeIndex === 2 ? 'scale-100 z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[-4deg] hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.85] z-20 rotate-[-8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[-6deg] hover:scale-[0.88]'}
           `}
         >
@@ -169,7 +170,7 @@ function HeroSection() {
         <motion.div 
           style={{ y: sidePhonesY }}
           onClick={() => setActiveIndex(1)}
-          className={`absolute right-[5%] sm:right-[10%] xl:right-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu
+          className={`absolute right-[5%] sm:right-[10%] xl:right-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.25rem]
             ${activeIndex === 1 ? 'scale-100 z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[4deg] hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.85] z-20 rotate-[8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[6deg] hover:scale-[0.88]'}
           `}
         >
@@ -180,7 +181,7 @@ function HeroSection() {
         <motion.div 
           style={{ y: centerPhoneY }}
           onClick={() => setActiveIndex(0)}
-          className={`absolute transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu
+          className={`absolute transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.25rem]
             ${activeIndex === 0 ? 'scale-100 z-40 brightness-110 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rotate-0 hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.9] z-30 brightness-[0.8] hover:brightness-100 hover:scale-[0.95] rotate-0'}
           `}
         >
@@ -194,33 +195,36 @@ function HeroSection() {
 
 function PhoneMockup({ imageSrc, isActive }: { imageSrc: string, isActive: boolean }) {
   return (
-    <div className={`relative w-[220px] sm:w-[260px] xl:w-[280px] aspect-[1/2.16] rounded-[2.5rem] p-3 shadow-2xl transition-all duration-700 bg-white/[0.02] border border-white/[0.05] box-border backdrop-blur-xl`}>
-      {/* Phone Frame */}
-      <div className="absolute inset-0 rounded-[2.5rem] border-[4px] border-[#1a1a1a] pointer-events-none z-20" />
-      
-      {/* Hardware Details */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-6 bg-[#1a1a1a] rounded-b-2xl z-30 flex justify-center items-end pb-1.5">
-        <div className="w-1/3 h-1 bg-white/10 rounded-full" />
-      </div>
-      <div className="absolute -left-[4px] top-32 w-1 h-12 bg-[#1a1a1a] rounded-l-md z-20" />
-      <div className="absolute -left-[4px] top-48 w-1 h-12 bg-[#1a1a1a] rounded-l-md z-20" />
-      <div className="absolute -right-[4px] top-40 w-1 h-16 bg-[#1a1a1a] rounded-r-md z-20" />
-
-      {/* Screen Content */}
-      <div className="w-full h-full rounded-[2rem] overflow-hidden bg-zinc-900 border border-white/10 relative z-10">
+    <div className="relative w-[220px] sm:w-[260px] xl:w-[280px] aspect-[1/2.16] rounded-[2.5rem] p-[6px] shadow-2xl transition-all duration-500 transform-gpu bg-gradient-to-br from-zinc-700 via-zinc-900 to-black">
+      {/* Screen Content Wrapper */}
+      <div className="relative w-full h-full rounded-[2.1rem] overflow-hidden bg-black z-20 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]" style={{ transform: "translateZ(0)", WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}>
         <img 
           src={imageSrc} 
-          alt="App screen" 
-          className="w-full h-full object-cover"
-          loading="lazy"
+          alt="Mockup"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+          onError={(e) => { (e.target as HTMLImageElement).style.opacity = '0'; }}
         />
-        
-        {/* Reflection Overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 pointer-events-none transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-0'}`} />
       </div>
 
+      {/* Titanium reflection overlay */}
+      <div className={`absolute inset-0 rounded-[2.5rem] border border-white/20 pointer-events-none z-30 transition-all duration-500 bg-gradient-to-tr from-white/10 to-transparent ${isActive ? 'opacity-100 ring-1 ring-white/20' : 'opacity-40'} mix-blend-overlay`} style={{ transform: "translateZ(0)", WebkitMaskImage: '-webkit-radial-gradient(white, black)' }} />
+      <div className="absolute inset-[6px] ring-1 ring-inset ring-white/15 rounded-[2.1rem] z-40 pointer-events-none" />
+
+      {/* Hardware Buttons */}
+      <div className="absolute -left-[2px] top-32 w-1 h-12 bg-[#222] rounded-l-md z-20 shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]" />
+      <div className="absolute -left-[2px] top-48 w-1 h-12 bg-[#222] rounded-l-md z-20 shadow-[inset_1px_0_1px_rgba(255,255,255,0.1)]" />
+      <div className="absolute -right-[2px] top-40 w-1 h-16 bg-[#222] rounded-r-md z-20 shadow-[inset_-1px_0_1px_rgba(255,255,255,0.1)]" />
+
+      {/* Notch */}
+      <div className="absolute top-[6px] inset-x-0 h-[22px] flex justify-center z-40 pointer-events-none">
+        <div className="w-[35%] h-full bg-black rounded-b-[14px] shadow-[0_2px_10px_rgba(0,0,0,0.5)] flex justify-center items-center gap-2">
+          {/* Camera lens reflection */}
+          <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/20 shadow-[inset_0_0_2px_rgba(255,255,255,0.5)]" />
+        </div>
+      </div>
+      
       {/* Outer Glow */}
-      <div className={`absolute inset-[-10%] bg-gradient-to-b from-purple-500/20 to-transparent blur-2xl -z-10 rounded-full transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-0'}`} />
+      <div className={`absolute inset-[-10%] bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.15),transparent_70%)] blur-xl -z-10 rounded-[3rem] transition-all duration-700 ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`} />
     </div>
   );
 }
