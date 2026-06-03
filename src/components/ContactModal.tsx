@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Linkedin, Github, Mail, Phone } from 'lucide-react';
+import { X, Linkedin, Github, Mail, Phone, Check } from 'lucide-react';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -8,10 +8,18 @@ interface ContactModalProps {
 }
 
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const [copiedPhone, setCopiedPhone] = useState(false);
+
+  const handleCopyPhone = () => {
+    navigator.clipboard.writeText('+91 6378640389');
+    setCopiedPhone(true);
+    setTimeout(() => setCopiedPhone(false), 2000);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
+        <React.Fragment key="contact-modal">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -67,7 +75,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </a>
 
               <a
-                href="mailto:gaurav.vedi2003@gmail.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=gaurav.vedi2003@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-4 w-full p-4 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05] rounded-xl text-white transition-colors group"
               >
                 <div className="p-3 bg-emerald-500/10 text-emerald-400 rounded-lg group-hover:bg-emerald-500/20 transition-colors">
@@ -79,21 +89,23 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 </div>
               </a>
 
-              <a
-                href="tel:+916378640389"
-                className="flex items-center gap-4 w-full p-4 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05] rounded-xl text-white transition-colors group"
+              <button
+                onClick={handleCopyPhone}
+                className="flex items-center gap-4 w-full p-4 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05] rounded-xl text-white transition-colors group cursor-pointer"
               >
                 <div className="p-3 bg-purple-500/10 text-purple-400 rounded-lg group-hover:bg-purple-500/20 transition-colors">
-                  <Phone className="w-5 h-5" />
+                  {copiedPhone ? <Check className="w-5 h-5 text-green-400" /> : <Phone className="w-5 h-5" />}
                 </div>
                 <div className="flex-1 text-left">
                   <div className="font-medium text-sm">Phone</div>
-                  <div className="text-xs text-white/80 select-all">+91 6378640389</div>
+                  <div className="text-xs text-white/80 transition-colors">
+                    {copiedPhone ? <span className="text-green-400">Copied to clipboard!</span> : "+91 6378640389"}
+                  </div>
                 </div>
-              </a>
+              </button>
             </div>
           </motion.div>
-        </>
+        </React.Fragment>
       )}
     </AnimatePresence>
   );
