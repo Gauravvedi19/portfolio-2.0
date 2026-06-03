@@ -358,7 +358,7 @@ highlights: [
 
 why: "The onboarding experience is intentionally designed to reduce friction and help users feel connected immediately. Instead of overwhelming setup screens, Postcard gradually personalizes discovery through lightweight onboarding, profile customization, and preference-based experiences. This ensures users move from authentication to meaningful exploration in seconds.",
 
-video: "personalized-experience.mp4"
+video: "/videos/personalized-experience.mp4"
 }
 
 ,
@@ -387,13 +387,13 @@ highlights: [
 
 why: "Unlike traditional review platforms that rely heavily on ratings, Postcard focuses on authentic discovery through people and storytelling. The browsing experience is designed to feel emotional and organic, helping users discover meaningful places through trusted community experiences rather than generic algorithms.",
 
-video: "community-browsing.mp4"
+video: "/videos/community-browsing.mp4"
 }
 ,
   {
   id: "03",
   title: "Discover Hidden Places",
-  summary: "Community-driven exploration around you.",
+  summary: "/videos/discover-places.mp4",
 
   desc: "Discover extraordinary places through an interactive geo-location experience designed for real-world exploration. Filter nearby hidden gems, uncover trending spots, read authentic recommendations from locals, browse community guestbooks, and save memorable discoveries for later adventures.",
 
@@ -416,7 +416,7 @@ video: "community-browsing.mp4"
 
   why: "This is the core experience of Postcard. Instead of generic recommendations or influencer-driven content, users discover meaningful locations through real community experiences. The geo-intelligent map system makes exploration feel personal, local, and authentic.",
 
-  video: "discover-places.mp4"
+  video: "/videos/discover-places.mp4"
 },
   {
   id: "04",
@@ -444,7 +444,7 @@ video: "community-browsing.mp4"
 
   why: "Postcard grows through authentic experiences shared by real people. Instead of short-form social content or ratings, users create meaningful discovery stories that help communities uncover memorable places through trust, context, and local knowledge.",
 
-  video: "create-share.mp4"
+  video: "/videos/create-share.mp4"
 },
   {
   id: "05",
@@ -472,7 +472,7 @@ video: "community-browsing.mp4"
 
   why: "The Explore experience transforms Postcard from a traditional discovery app into a location-intelligent platform. By combining geo-awareness, community behavior, and trend-based exploration, users discover places that feel relevant, authentic, and contextual to where they are.",
 
-  video: "explore-geo-discovery.mp4"
+  video: "/videos/explore-geo-discovery.mp4"
 },
   {
   id: "06",
@@ -500,7 +500,7 @@ video: "community-browsing.mp4"
 
   why: "The profile experience transforms Postcard into a long-term companion rather than a one-time discovery app. By combining identity, saved experiences, achievements, and personalization, users build a deeper emotional connection with their exploration journey.",
 
-  video: "profile-personalization.mp4"
+  video: "/videos/profile-personalization.mp4"
 }
   
 ];
