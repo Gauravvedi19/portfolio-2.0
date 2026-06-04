@@ -18,17 +18,19 @@ import Scene5Products from "./components/scenes/Scene5Products";
 import SceneAbout from "./components/scenes/SceneAbout";
 import SceneSkills from "./components/scenes/SceneSkills";
 import Scene7CTA from "./components/scenes/Scene7CTA";
-import WashAdminCaseStudy from "./components/WashAdminCaseStudy";
-import ClinkoCaseStudy from "./components/scenes/ClinkoCaseStudy";
-import ProjectCivicCaseStudy from "./components/scenes/ProjectCivicCaseStudy";
 
-function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
+function ScrollHandler({ lenisRef, lenisReady }: { lenisRef: React.MutableRefObject<Lenis | null>, lenisReady: boolean }) {
   const location = useLocation();
 
   useEffect(() => {
-    if (!lenis) return;
+    const lenis = lenisRef.current;
+    if (!lenis || !lenisReady) return;
 
     let targetId = location.hash.replace("#", "");
+
+    if (!targetId && location.pathname !== "/") {
+      targetId = location.pathname.substring(1).toLowerCase();
+    }
 
     if (targetId) {
       console.log("Deep link detected. Target:", targetId);
@@ -57,10 +59,10 @@ function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
       findAndScroll();
     } else {
       setTimeout(() => {
-        lenis.scrollTo(0, { immediate: true });
+        if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
       }, 10);
     }
-  }, [location, lenis]);
+  }, [location, lenisRef, lenisReady]);
 
   return null;
 }
@@ -93,7 +95,8 @@ function Home() {
 }
 
 export default function App() {
-  const [lenis, setLenis] = useState<Lenis | null>(null);
+  const lenisRef = React.useRef<Lenis | null>(null);
+  const [lenisReady, setLenisReady] = useState(false);
 
   useEffect(() => {
     const lenisInstance = new Lenis({
@@ -102,7 +105,8 @@ export default function App() {
       smoothWheel: true,
     });
 
-    setLenis(lenisInstance);
+    lenisRef.current = lenisInstance;
+    setLenisReady(true);
 
     function raf(time: number) {
       lenisInstance.raf(time);
@@ -113,13 +117,13 @@ export default function App() {
 
     return () => {
       lenisInstance.destroy();
-      setLenis(null);
+      lenisRef.current = null;
     };
   }, []);
 
   return (
     <BrowserRouter>
-      <ScrollHandler lenis={lenis} />
+      <ScrollHandler lenisRef={lenisRef} lenisReady={lenisReady} />
       <div className="relative min-h-screen bg-background text-foreground antialiased selection:bg-white/20">
         {/* Premium Ambient Background Glow (Aurora Blue) */}
         <div className="fixed inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen overflow-hidden">
@@ -134,30 +138,9 @@ export default function App() {
         <main className="relative z-10 w-full min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/washadmin"
-              element={
-                <div className="max-w-7xl mx-auto px-6 pb-32">
-                  <WashAdminCaseStudy />
-                </div>
-              }
-            />
-            <Route
-              path="/cliniko"
-              element={
-                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
-                  <ClinkoCaseStudy />
-                </div>
-              }
-            />
-            <Route
-              path="/projectcivic"
-              element={
-                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
-                  <ProjectCivicCaseStudy />
-                </div>
-              }
-            />
+            <Route path="/washadmin" element={<Home />} />
+            <Route path="/cliniko" element={<Home />} />
+            <Route path="/projectcivic" element={<Home />} />
           </Routes>
         </main>
       </div>
