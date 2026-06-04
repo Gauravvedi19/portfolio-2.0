@@ -28,27 +28,46 @@ function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
     let targetId = location.hash.replace("#", "");
 
     if (!targetId && location.pathname !== "/") {
-      targetId = location.pathname.substring(1);
+      targetId = location.pathname.substring(1).toLowerCase();
     }
 
     if (targetId) {
-      // Retry finding element a few times if it delays rendering
+      console.log("Deep link detected. Target:", targetId);
+      // More robust retry mechanism for images/fonts loading pushing layout down
       let attempts = 0;
+      const MAX_ATTEMPTS = 25;
+
       const findAndScroll = () => {
         const element = document.getElementById(targetId);
         if (element) {
+          console.log(`Element '${targetId}' found. Scrolling...`);
+          // Use Lenis for smooth/immediate virtual scroll
           lenis.scrollTo(element, {
-            offset: -50,
-            immediate: true, // Jump immediately rather than animating
+            offset: -100,
+            immediate: false,
+            duration: 1.5,
           });
-        } else if (attempts < 10) {
+
+          // Also invoke native scroll behavior as fallback to enforce view position
+          // after a short delay in case Lenis bounds are stale
+          setTimeout(() => {
+            const el = document.getElementById(targetId);
+            if (el) {
+              lenis.scrollTo(el, { offset: -100, duration: 0.5 });
+            }
+          }, 800);
+        } else if (attempts < MAX_ATTEMPTS) {
           attempts++;
-          setTimeout(findAndScroll, 100);
+          setTimeout(findAndScroll, 200);
         }
       };
-      findAndScroll();
+
+      // Execute with slight initial delay to let DOM paint
+      setTimeout(findAndScroll, 200);
     } else if (location.pathname === "/" && !location.hash) {
-      lenis.scrollTo(0, { immediate: true });
+      setTimeout(() => {
+        lenis.scrollTo(0, { immediate: true });
+      }, 100);
     }
   }, [location, lenis]);
 
