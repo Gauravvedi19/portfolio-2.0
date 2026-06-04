@@ -18,54 +18,49 @@ import Scene5Products from "./components/scenes/Scene5Products";
 import SceneAbout from "./components/scenes/SceneAbout";
 import SceneSkills from "./components/scenes/SceneSkills";
 import Scene7CTA from "./components/scenes/Scene7CTA";
+import WashAdminCaseStudy from "./components/WashAdminCaseStudy";
+import ClinkoCaseStudy from "./components/scenes/ClinkoCaseStudy";
+import ProjectCivicCaseStudy from "./components/scenes/ProjectCivicCaseStudy";
 
-function ScrollHandler({ lenisRef, lenisReady }: { lenisRef: React.MutableRefObject<Lenis | null>, lenisReady: boolean }) {
+function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
   const location = useLocation();
 
   useEffect(() => {
-    const lenis = lenisRef.current;
-    if (!lenis || !lenisReady) return;
+    if (!lenis) return;
 
     let targetId = location.hash.replace("#", "");
 
-    if (!targetId && location.pathname !== "/") {
-      targetId = location.pathname.substring(1).toLowerCase();
-    }
-
     if (targetId) {
       console.log("Deep link detected. Target:", targetId);
-      
-      // Use a timeout to ensure the DOM has painted and layout is stable
-      setTimeout(() => {
+      let attempts = 0;
+      const MAX_ATTEMPTS = 50;
+
+      const findAndScroll = () => {
         const element = document.getElementById(targetId);
         if (element) {
-          // Force layout calculation
-          element.getBoundingClientRect();
-          // Scroll immediately via Lenis
-          lenis.scrollTo(element, { offset: -100, immediate: true });
-          // Fallback native scroll
+          if (attempts === 0) {
+            lenis.scrollTo(element, { offset: -100, immediate: true });
+          }
           element.scrollIntoView({ behavior: "auto", block: "start" });
-          
-          // Re-adjust after images/fonts might have loaded (e.g. 500ms and 1000ms later)
-          setTimeout(() => lenis.scrollTo(element, { offset: -100, immediate: true }), 500);
-          setTimeout(() => lenis.scrollTo(element, { offset: -100, immediate: true }), 1000);
-        } else {
-          // If not found immediately, retry a few times (helps if dynamically rendered)
-          let retries = 0;
-          const retryInterval = setInterval(() => {
-            const el = document.getElementById(targetId);
-            if (el) {
-              clearInterval(retryInterval);
-              lenis.scrollTo(el, { offset: -100, immediate: true });
-              el.scrollIntoView({ behavior: "auto", block: "start" });
-            }
-            retries++;
-            if (retries > 20) clearInterval(retryInterval); // Stop after 2 seconds
-          }, 100);
+          if (attempts < MAX_ATTEMPTS) {
+            attempts++;
+            setTimeout(() => {
+              lenis.scrollTo(element, { offset: -100, immediate: true });
+              findAndScroll();
+            }, 100);
+          }
+        } else if (attempts < MAX_ATTEMPTS) {
+          attempts++;
+          setTimeout(findAndScroll, 100);
         }
-      }, 100);
+      };
+      findAndScroll();
+    } else {
+      setTimeout(() => {
+        lenis.scrollTo(0, { immediate: true });
+      }, 10);
     }
-  }, [location, lenisRef, lenisReady]);
+  }, [location, lenis]);
 
   return null;
 }
@@ -98,8 +93,7 @@ function Home() {
 }
 
 export default function App() {
-  const lenisRef = React.useRef<Lenis | null>(null);
-  const [lenisReady, setLenisReady] = useState(false);
+  const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
     const lenisInstance = new Lenis({
@@ -108,8 +102,7 @@ export default function App() {
       smoothWheel: true,
     });
 
-    lenisRef.current = lenisInstance;
-    setLenisReady(true);
+    setLenis(lenisInstance);
 
     function raf(time: number) {
       lenisInstance.raf(time);
@@ -120,13 +113,13 @@ export default function App() {
 
     return () => {
       lenisInstance.destroy();
-      lenisRef.current = null;
+      setLenis(null);
     };
   }, []);
 
   return (
     <BrowserRouter>
-      <ScrollHandler lenisRef={lenisRef} lenisReady={lenisReady} />
+      <ScrollHandler lenis={lenis} />
       <div className="relative min-h-screen bg-background text-foreground antialiased selection:bg-white/20">
         {/* Premium Ambient Background Glow (Aurora Blue) */}
         <div className="fixed inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen overflow-hidden">
@@ -140,7 +133,31 @@ export default function App() {
 
         <main className="relative z-10 w-full min-h-screen">
           <Routes>
-            <Route path="/*" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/washadmin"
+              element={
+                <div className="max-w-7xl mx-auto px-6 pb-32">
+                  <WashAdminCaseStudy />
+                </div>
+              }
+            />
+            <Route
+              path="/cliniko"
+              element={
+                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
+                  <ClinkoCaseStudy />
+                </div>
+              }
+            />
+            <Route
+              path="/projectcivic"
+              element={
+                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
+                  <ProjectCivicCaseStudy />
+                </div>
+              }
+            />
           </Routes>
         </main>
       </div>
