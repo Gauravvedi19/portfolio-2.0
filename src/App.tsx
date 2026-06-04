@@ -9,7 +9,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Link } from "react-router-dom";
 import Lenis from "lenis";
 import Scene1Spark from "./components/scenes/Scene1Spark";
 import Scene2Chaos from "./components/scenes/Scene2Chaos";
@@ -19,6 +19,11 @@ import SceneAbout from "./components/scenes/SceneAbout";
 import SceneSkills from "./components/scenes/SceneSkills";
 import Scene7CTA from "./components/scenes/Scene7CTA";
 
+import PostcardPage from "./pages/PostcardPage";
+import WashAdminCaseStudy from "./components/WashAdminCaseStudy";
+import ClinkoCaseStudy from "./components/scenes/ClinkoCaseStudy";
+import ProjectCivicCaseStudy from "./components/scenes/ProjectCivicCaseStudy";
+
 function ScrollHandler({ lenisRef, lenisReady }: { lenisRef: React.MutableRefObject<Lenis | null>, lenisReady: boolean }) {
   const location = useLocation();
 
@@ -27,10 +32,6 @@ function ScrollHandler({ lenisRef, lenisReady }: { lenisRef: React.MutableRefObj
     if (!lenis || !lenisReady) return;
 
     let targetId = location.hash.replace("#", "");
-
-    if (!targetId && location.pathname !== "/") {
-      targetId = location.pathname.substring(1).toLowerCase();
-    }
 
     if (targetId) {
       console.log("Deep link detected. Target:", targetId);
@@ -68,6 +69,7 @@ function ScrollHandler({ lenisRef, lenisReady }: { lenisRef: React.MutableRefObj
       setTimeout(() => {
         if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
       }, 10);
+      window.scrollTo(0, 0); // Native fast reset
     }
   }, [location, lenisRef, lenisReady]);
 
@@ -98,6 +100,23 @@ function Home() {
       <div id="contact" />
       <Scene7CTA />
     </>
+  );
+}
+
+// Layout wrapper for Case Studies to give them padding
+function CaseStudyWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen bg-background relative selection:bg-white/20 overflow-hidden pt-24 pb-32">
+      <div className="fixed inset-0 pointer-events-none opacity-[0.035] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-50 mix-blend-overlay"></div>
+      <div className="max-w-7xl mx-auto px-6 relative z-10 mb-12">
+        <Link to="/" className="inline-flex items-center gap-2 text-[10px] uppercase font-mono tracking-widest text-zinc-400 hover:text-white transition-colors bg-zinc-900/50 px-4 py-2 rounded-full border border-white/10 uppercase">
+          ← Back to Home
+        </Link>
+      </div>
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {children}
+      </div>
+    </div>
   );
 }
 
@@ -144,6 +163,11 @@ export default function App() {
 
         <main className="relative z-10 w-full min-h-screen">
           <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/postcard" element={<PostcardPage />} />
+            <Route path="/washadmin" element={<CaseStudyWrapper><WashAdminCaseStudy /></CaseStudyWrapper>} />
+            <Route path="/cliniko" element={<CaseStudyWrapper><ClinkoCaseStudy /></CaseStudyWrapper>} />
+            <Route path="/projectcivic" element={<CaseStudyWrapper><ProjectCivicCaseStudy /></CaseStudyWrapper>} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>
