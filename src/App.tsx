@@ -33,37 +33,37 @@ function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
 
     if (targetId) {
       console.log("Deep link detected. Target:", targetId);
-      // More robust retry mechanism for images/fonts loading pushing layout down
       let attempts = 0;
-      const MAX_ATTEMPTS = 25;
+      const MAX_ATTEMPTS = 50;
 
       const findAndScroll = () => {
         const element = document.getElementById(targetId);
         if (element) {
           console.log(`Element '${targetId}' found. Scrolling...`);
-          // Use Lenis for smooth/immediate virtual scroll
-          lenis.scrollTo(element, {
-            offset: -100,
-            immediate: false,
-            duration: 1.5,
-          });
 
-          // Also invoke native scroll behavior as fallback to enforce view position
-          // after a short delay in case Lenis bounds are stale
-          setTimeout(() => {
-            const el = document.getElementById(targetId);
-            if (el) {
-              lenis.scrollTo(el, { offset: -100, duration: 0.5 });
-            }
-          }, 800);
+          // First attempt to jump immediately
+          if (attempts === 0) {
+            lenis.scrollTo(element, { offset: -100, immediate: true });
+          }
+
+          // Use native scroll as a forceful backup, and update lenis on the way
+          element.scrollIntoView({ behavior: "auto", block: "start" });
+          if (attempts < MAX_ATTEMPTS) {
+            attempts++;
+            // Re-trigger scroll every 100ms for 5 seconds to fight layout shifts from loading images
+            setTimeout(() => {
+              lenis.scrollTo(element, { offset: -100, immediate: true });
+              findAndScroll();
+            }, 100);
+          }
         } else if (attempts < MAX_ATTEMPTS) {
           attempts++;
-          setTimeout(findAndScroll, 200);
+          setTimeout(findAndScroll, 100);
         }
       };
 
-      // Execute with slight initial delay to let DOM paint
-      setTimeout(findAndScroll, 200);
+      // Start the aggressive scroll pinning
+      findAndScroll();
     } else if (location.pathname === "/" && !location.hash) {
       setTimeout(() => {
         lenis.scrollTo(0, { immediate: true });
