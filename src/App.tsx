@@ -34,29 +34,36 @@ function ScrollHandler({ lenisRef, lenisReady }: { lenisRef: React.MutableRefObj
 
     if (targetId) {
       console.log("Deep link detected. Target:", targetId);
-      let attempts = 0;
-      const MAX_ATTEMPTS = 50;
-
-      const findAndScroll = () => {
+      
+      // Use a timeout to ensure the DOM has painted and layout is stable
+      setTimeout(() => {
         const element = document.getElementById(targetId);
         if (element) {
-          if (attempts === 0) {
-            lenis.scrollTo(element, { offset: -100, immediate: true });
-          }
+          // Force layout calculation
+          element.getBoundingClientRect();
+          // Scroll immediately via Lenis
+          lenis.scrollTo(element, { offset: -100, immediate: true });
+          // Fallback native scroll
           element.scrollIntoView({ behavior: "auto", block: "start" });
-          if (attempts < MAX_ATTEMPTS) {
-            attempts++;
-            setTimeout(() => {
-              lenis.scrollTo(element, { offset: -100, immediate: true });
-              findAndScroll();
-            }, 100);
-          }
-        } else if (attempts < MAX_ATTEMPTS) {
-          attempts++;
-          setTimeout(findAndScroll, 100);
+          
+          // Re-adjust after images/fonts might have loaded (e.g. 500ms and 1000ms later)
+          setTimeout(() => lenis.scrollTo(element, { offset: -100, immediate: true }), 500);
+          setTimeout(() => lenis.scrollTo(element, { offset: -100, immediate: true }), 1000);
+        } else {
+          // If not found immediately, retry a few times (helps if dynamically rendered)
+          let retries = 0;
+          const retryInterval = setInterval(() => {
+            const el = document.getElementById(targetId);
+            if (el) {
+              clearInterval(retryInterval);
+              lenis.scrollTo(el, { offset: -100, immediate: true });
+              el.scrollIntoView({ behavior: "auto", block: "start" });
+            }
+            retries++;
+            if (retries > 20) clearInterval(retryInterval); // Stop after 2 seconds
+          }, 100);
         }
-      };
-      findAndScroll();
+      }, 100);
     } else {
       setTimeout(() => {
         if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
@@ -137,10 +144,7 @@ export default function App() {
 
         <main className="relative z-10 w-full min-h-screen">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/washadmin" element={<Home />} />
-            <Route path="/cliniko" element={<Home />} />
-            <Route path="/projectcivic" element={<Home />} />
+            <Route path="*" element={<Home />} />
           </Routes>
         </main>
       </div>
