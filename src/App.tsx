@@ -19,14 +19,12 @@ import SceneAbout from "./components/scenes/SceneAbout";
 import SceneSkills from "./components/scenes/SceneSkills";
 import Scene7CTA from "./components/scenes/Scene7CTA";
 
-function ScrollHandler({ getLenis }: { getLenis: () => Lenis | null }) {
+function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
   const location = useLocation();
 
   useEffect(() => {
-    const lenis = getLenis();
     if (!lenis) return;
 
-    // Check if there's a hash, otherwise check path (e.g., /about -> target 'about')
     let targetId = location.hash.replace("#", "");
 
     if (!targetId && location.pathname !== "/") {
@@ -34,55 +32,57 @@ function ScrollHandler({ getLenis }: { getLenis: () => Lenis | null }) {
     }
 
     if (targetId) {
-      const element = document.getElementById(targetId);
-      if (element) {
-        // slight delay to ensure layout is ready
-        setTimeout(() => {
+      // Retry finding element a few times if it delays rendering
+      let attempts = 0;
+      const findAndScroll = () => {
+        const element = document.getElementById(targetId);
+        if (element) {
           lenis.scrollTo(element, {
-            offset: 0,
-            duration: 1.5,
-            immediate: false,
+            offset: -50,
+            immediate: true, // Jump immediately rather than animating
           });
-        }, 100);
-      }
+        } else if (attempts < 10) {
+          attempts++;
+          setTimeout(findAndScroll, 100);
+        }
+      };
+      findAndScroll();
     } else if (location.pathname === "/" && !location.hash) {
       lenis.scrollTo(0, { immediate: true });
     }
-  }, [location, getLenis]);
+  }, [location, lenis]);
 
   return null;
 }
 
 export default function App() {
-  const lenisRef = React.useRef<Lenis | null>(null);
-
-  const getLenis = React.useCallback(() => lenisRef.current, []);
+  const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
-    const lenis = new Lenis({
+    const lenisInstance = new Lenis({
       lerp: 0.05,
       // @ts-ignore
       smoothWheel: true,
     });
 
-    lenisRef.current = lenis;
+    setLenis(lenisInstance);
 
     function raf(time: number) {
-      lenis.raf(time);
+      lenisInstance.raf(time);
       requestAnimationFrame(raf);
     }
 
     requestAnimationFrame(raf);
 
     return () => {
-      lenis.destroy();
-      lenisRef.current = null;
+      lenisInstance.destroy();
+      setLenis(null);
     };
   }, []);
 
   return (
     <BrowserRouter>
-      <ScrollHandler getLenis={getLenis} />
+      <ScrollHandler lenis={lenis} />
       <div className="relative min-h-screen bg-background text-foreground antialiased selection:bg-white/20">
         {/* Premium Ambient Background Glow (Aurora Blue) */}
         <div className="fixed inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen overflow-hidden">
