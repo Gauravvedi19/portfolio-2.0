@@ -110,19 +110,27 @@ export default function Scene5Products() {
         </motion.div>
 
         <div className="flex flex-col">
-          <PostcardFlagship onShowProductExperience={() => setShowProductExperience(true)} />
-          {showProductExperience && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <PostcardProductExperience />
-            </motion.div>
-          )}
-          <WashAdminCaseStudy />
-          <ClinkoCaseStudy />
-          <ProjectCivicCaseStudy />
+          <div id="postcard">
+            <PostcardFlagship onShowProductExperience={() => setShowProductExperience(true)} />
+            {showProductExperience && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <PostcardProductExperience />
+              </motion.div>
+            )}
+          </div>
+          <div id="wash-admin">
+            <WashAdminCaseStudy />
+          </div>
+          <div id="clinko">
+            <ClinkoCaseStudy />
+          </div>
+          <div id="project-civic">
+            <ProjectCivicCaseStudy />
+          </div>
         </div>
       </div>
     </section>
@@ -337,6 +345,7 @@ function PhoneMockup({ imageSrc, isActive = false }: { imageSrc: string, isActiv
 const PRODUCT_EXPERIENCES = [
  {
 id: "01",
+tag: "Onboarding",
 title: "Login Flow",
 summary: "Seamless onboarding, your way.",
 desc: "Sign in effortlessly using Google or email and personalize your experience from the very first interaction. Designed to make discovery feel instant, familiar, and intuitive while minimizing friction during onboarding.",
@@ -364,6 +373,7 @@ video: "/videos/personalized-experience.mp4"
 ,
   {
 id: "02",
+tag: "Social",
 title: "Community & Browsing",
 summary: "Experience discovery powered by people.",
 
@@ -392,8 +402,9 @@ video: "/videos/community-browsing.mp4"
 ,
   {
   id: "03",
+  tag: "Core Feature",
   title: "Discover Hidden Places",
-  summary: "/videos/discover-places.mp4",
+  summary: "Community-driven exploration around you.",
 
   desc: "Discover extraordinary places through an interactive geo-location experience designed for real-world exploration. Filter nearby hidden gems, uncover trending spots, read authentic recommendations from locals, browse community guestbooks, and save memorable discoveries for later adventures.",
 
@@ -420,6 +431,7 @@ video: "/videos/community-browsing.mp4"
 },
   {
   id: "04",
+  tag: "Creation",
   title: "Create & Share Experience",
   summary: "Turn experiences into discoveries.",
 
@@ -448,6 +460,7 @@ video: "/videos/community-browsing.mp4"
 },
   {
   id: "05",
+  tag: "Discovery",
   title: "Explore & Geo Discovery",
   summary: "Location-aware discovery, personalized to you.",
 
@@ -476,6 +489,7 @@ video: "/videos/community-browsing.mp4"
 },
   {
   id: "06",
+  tag: "Identity",
   title: "Profile & Personalization",
   summary: "Your discovery journey, all in one place.",
 
@@ -540,7 +554,12 @@ function PostcardProductExperience() {
                 <div className="flex items-center gap-6 sm:gap-8 origin-left transition-transform duration-500 group-hover:translate-x-1">
                   <span className="font-mono text-xs sm:text-sm text-emerald-400/80">{exp.id}</span>
                   <div>
-                    <h4 className="font-display text-xl sm:text-2xl text-white mb-1 transition-colors group-hover:text-emerald-50">{exp.title}</h4>
+                    <div className="flex items-center gap-3 mb-1">
+                      <h4 className="font-display text-xl sm:text-2xl text-white transition-colors group-hover:text-emerald-50">{exp.title}</h4>
+                      {exp.tag && (
+                         <span className="shrink-0 px-2.5 py-1 rounded-md text-[10px] sm:text-xs uppercase font-mono font-semibold tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">{exp.tag}</span>
+                      )}
+                    </div>
                     <p className="text-white/50 text-sm hidden sm:block max-w-xl pr-4 leading-relaxed">{exp.summary}</p>
                   </div>
                 </div>

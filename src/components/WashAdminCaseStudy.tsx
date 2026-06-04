@@ -106,7 +106,7 @@ function HeroSection({ onShowProductExperience }: { onShowProductExperience?: ()
           </div>
           
           <h3 className="font-display text-5xl sm:text-7xl text-white tracking-tight">
-            WashDesk — A Real-Time Car Wash Operations System
+            WashAdmin
           </h3>
           <h4 className="font-display text-2xl sm:text-3xl text-white/80 italic leading-snug">
             “A full-stack mobile + operations platform for managing bookings, subscriptions, bays, and business operations in real time.”
@@ -281,6 +281,7 @@ const CUSTOMER_MOCKUPS = [
 const WASHADMIN_PRODUCT_EXPERIENCES = [
   {
     id: "01",
+    tag: "Onboarding",
     title: "Customer Journey & Smart Booking",
     summary: "What does the platform do?",
     desc: "A frictionless journey from sign-up to confirmed wash booking. Customers can effortlessly authenticate, register their vehicles, purchase subscriptions, and book available time slots in real time.",
@@ -304,6 +305,7 @@ const WASHADMIN_PRODUCT_EXPERIENCES = [
   },
   {
     id: "02",
+    tag: "Core Workflow",
     title: "Smart Check-In Experience",
     summary: "How does check-in work?",
     desc: "A completely seamless check-in experience. Customers can instantly check in using a QR code and process pay-per-wash transactions via Razorpay, while administrators monitor the queue and trigger manual check-ins if needed.",
@@ -325,6 +327,7 @@ const WASHADMIN_PRODUCT_EXPERIENCES = [
   },
   {
     id: "03",
+    tag: "Automation",
     title: "Auto Bay Intelligence",
     summary: "What makes this system smart?",
     desc: "The core intelligence engine. Server-side automation handles bay assignments intelligently based on real-time availability and wash type. Customers see live bay status updates, while the system automates background operations.",
@@ -347,6 +350,7 @@ const WASHADMIN_PRODUCT_EXPERIENCES = [
   },
   {
     id: "04",
+    tag: "Administration",
     title: "Operations Configuration Engine",
     summary: "How customizable is the system?",
     desc: "A powerful admin portal giving operators complete control. Configure pricing models, manage subscription tiers, define bay logic, set booking rules, and handle payment controls—all updating the customer app in real-time.",
@@ -368,6 +372,7 @@ const WASHADMIN_PRODUCT_EXPERIENCES = [
   },
   {
     id: "05",
+    tag: "Growth",
     title: "Customer Management & Growth",
     summary: "How does the business retain customers?",
     desc: "Comprehensive tools for retention and growth. Administrators can track user habits, manage wallet recharges, and analyze subscription behavior, while customers interact via a clean mobile wallet and history interface.",
@@ -389,6 +394,7 @@ const WASHADMIN_PRODUCT_EXPERIENCES = [
   },
   {
     id: "06",
+    tag: "Analytics",
     title: "Analytics & Business Intelligence",
     summary: "What insights do owners get?",
     desc: "A rich analytics dashboard built directly into the admin portal. Owners gain instant access to revenue metrics, peak hour analysis, retention rates, and wash volume metrics.",
@@ -571,7 +577,12 @@ function WashAdminProductExperience() {
                 <div className="flex items-center gap-6 sm:gap-8 origin-left transition-transform duration-500 group-hover:translate-x-1">
                   <span className="font-mono text-xs sm:text-sm text-blue-400/80">{exp.id}</span>
                   <div>
-                    <h4 className="font-display text-xl sm:text-2xl text-white mb-1 transition-colors group-hover:text-blue-50">{exp.title}</h4>
+                    <div className="flex items-center gap-3 mb-1">
+                      <h4 className="font-display text-xl sm:text-2xl text-white transition-colors group-hover:text-blue-50">{exp.title}</h4>
+                      {exp.tag && (
+                         <span className="shrink-0 px-2.5 py-1 rounded-md text-[10px] sm:text-xs uppercase font-mono font-semibold tracking-wider bg-blue-500/10 text-blue-400 border border-blue-500/20">{exp.tag}</span>
+                      )}
+                    </div>
                     <p className="text-white/50 text-sm hidden sm:block max-w-xl pr-4 leading-relaxed">{exp.summary}</p>
                   </div>
                 </div>

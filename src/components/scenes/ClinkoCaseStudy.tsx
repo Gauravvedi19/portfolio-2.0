@@ -143,8 +143,7 @@ function HeroSection({ isExperienceOpen, onToggleExperience }: { isExperienceOpe
           </div>
           
           <h3 className="font-display text-5xl sm:text-7xl text-white tracking-tight">
-            Cliniko
-
+            Clinko
           </h3>
           <h4 className="font-display text-2xl sm:text-3xl text-white/80 italic leading-snug">
             “A full-scale clinical ecosystem for patient care, AI prescription digitization, and operational workflows.”
@@ -201,7 +200,7 @@ function HeroSection({ isExperienceOpen, onToggleExperience }: { isExperienceOpe
           <ProjectModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-             title="Cliniko"
+             title="Clinko"
              links={{
                github: "https://github.com/Gauravvedi19/clinic_management_app-dev.git",
                portal: "https://clinic-management-portal-vert.vercel.app/",
@@ -561,6 +560,7 @@ function ImpactSection() {
 const EXPERIENCES = [
   {
     id: "01",
+    tag: "Onboarding",
     title: "Smart Patient Journey & Onboarding",
     summary: "Complete patient profile creation and onboarding.",
     description: "What does this platform actually do? We start with the patient's perspective, where they create a new account and securely enter their medical profile details natively from their mobile device.",
@@ -578,6 +578,7 @@ const EXPERIENCES = [
   },
   {
     id: "02",
+    tag: "Core Workflow",
     title: "Smart Queue & Cabin Intelligence",
     summary: "Real-time clinic orchestration & live booking sync.",
     description: "How does the clinic run in real time? I'll create a booking from the new account on mobile, and watch it instantly reflect on the clinic portal. Then, we proceed to manage the smart queue, assign cabins, and complete the consultation.",
@@ -597,6 +598,7 @@ const EXPERIENCES = [
   },
   {
     id: "03",
+    tag: "AI Processing",
     title: "AI Prescription Intelligence",
     summary: "Transform handwritten notes to structured JSON.",
     description: "What makes this SaaS different? Our Gemini AI integration allows staff to snap a photo of any handwritten prescription. We extract the medicine schedule automatically, keeping a human in the loop for safety, and sync it to the patient's app as actionable reminders.",
@@ -615,6 +617,7 @@ const EXPERIENCES = [
   },
   {
     id: "04",
+    tag: "Customization",
     title: "Clinic Configuration Engine",
     summary: "Dynamic customization & settings.",
     description: "How customizable is the platform? Deep dive into operating hours, slot intervals, capacity logic, and automated payment controls.",
@@ -633,6 +636,7 @@ const EXPERIENCES = [
   },
   {
     id: "05",
+    tag: "Administration",
     title: "Staff Access & Role Management",
     summary: "Scalable collaboration and access control.",
     description: "How does collaboration work? The administrator can add new staff, generate unique IDs, and assign specific portal permissions to doctors, receptionists, or admins.",
@@ -651,6 +655,7 @@ const EXPERIENCES = [
   },
   {
     id: "06",
+    tag: "Analytics",
     title: "Analytics & Clinic Intelligence",
     summary: "Data-driven business decisions.",
     description: "What insights does the clinic get? Track revenue growth, patient retention, medicine inventory success, and loyalty metrics.",
@@ -792,7 +797,12 @@ function ProductExperienceSection() {
                 <div className="flex items-center gap-6">
                   <span className={`font-mono text-xl ${isActive ? 'text-emerald-400' : 'text-white/20 group-hover:text-white/40'} transition-colors duration-300`}>{exp.id}</span>
                   <div>
-                    <h3 className={`font-display text-xl md:text-2xl transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/80 group-hover:text-white'}`}>{exp.title}</h3>
+                    <div className="flex items-center gap-3 mb-1">
+                       <h3 className={`font-display text-xl md:text-2xl transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/80 group-hover:text-white'}`}>{exp.title}</h3>
+                       {exp.tag && (
+                          <span className="shrink-0 px-2.5 py-1 rounded-md text-[10px] sm:text-xs uppercase font-mono font-semibold tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">{exp.tag}</span>
+                       )}
+                    </div>
                     {!isActive && <p className="text-white/40 text-sm mt-1">{exp.summary}</p>}
                   </div>
                 </div>
