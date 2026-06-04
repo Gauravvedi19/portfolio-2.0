@@ -22,11 +22,13 @@ import WashAdminCaseStudy from "./components/WashAdminCaseStudy";
 import ClinkoCaseStudy from "./components/scenes/ClinkoCaseStudy";
 import ProjectCivicCaseStudy from "./components/scenes/ProjectCivicCaseStudy";
 
-function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
+let globalLenis: Lenis | null = null;
+
+function ScrollHandler() {
   const location = useLocation();
 
   useEffect(() => {
-    if (!lenis) return;
+    if (!globalLenis) return;
 
     let targetId = location.hash.replace("#", "");
 
@@ -39,13 +41,13 @@ function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
         const element = document.getElementById(targetId);
         if (element) {
           if (attempts === 0) {
-            lenis.scrollTo(element, { offset: -100, immediate: true });
+            globalLenis!.scrollTo(element, { offset: -100, immediate: true });
           }
           element.scrollIntoView({ behavior: "auto", block: "start" });
           if (attempts < MAX_ATTEMPTS) {
             attempts++;
             setTimeout(() => {
-              lenis.scrollTo(element, { offset: -100, immediate: true });
+              globalLenis!.scrollTo(element, { offset: -100, immediate: true });
               findAndScroll();
             }, 100);
           }
@@ -57,10 +59,10 @@ function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
       findAndScroll();
     } else {
       setTimeout(() => {
-        lenis.scrollTo(0, { immediate: true });
+        globalLenis!.scrollTo(0, { immediate: true });
       }, 10);
     }
-  }, [location, lenis]);
+  }, [location]);
 
   return null;
 }
@@ -93,8 +95,6 @@ function Home() {
 }
 
 export default function App() {
-  const [lenis, setLenis] = useState<Lenis | null>(null);
-
   useEffect(() => {
     const lenisInstance = new Lenis({
       lerp: 0.05,
@@ -102,24 +102,26 @@ export default function App() {
       smoothWheel: true,
     });
 
-    setLenis(lenisInstance);
+    globalLenis = lenisInstance;
 
+    let rafId: number;
     function raf(time: number) {
       lenisInstance.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
       lenisInstance.destroy();
-      setLenis(null);
+      globalLenis = null;
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
   return (
     <BrowserRouter>
-      <ScrollHandler lenis={lenis} />
+      <ScrollHandler />
       <div className="relative min-h-screen bg-background text-foreground antialiased selection:bg-white/20">
         {/* Premium Ambient Background Glow (Aurora Blue) */}
         <div className="fixed inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen overflow-hidden">

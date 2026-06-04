@@ -51,7 +51,7 @@ export default function ContactSection() {
       try {
         localStorage.setItem('gaurav_vedi_messages', JSON.stringify(updated));
       } catch (err) {
-        console.error('Failed to write message to local storage', err);
+        console.error('Failed to write message to local storage');
       }
 
       setIsSubmitting(false);
