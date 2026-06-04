@@ -9,7 +9,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import Scene1Spark from "./components/scenes/Scene1Spark";
 import Scene2Chaos from "./components/scenes/Scene2Chaos";
@@ -18,6 +18,9 @@ import Scene5Products from "./components/scenes/Scene5Products";
 import SceneAbout from "./components/scenes/SceneAbout";
 import SceneSkills from "./components/scenes/SceneSkills";
 import Scene7CTA from "./components/scenes/Scene7CTA";
+import WashAdminCaseStudy from "./components/WashAdminCaseStudy";
+import ClinkoCaseStudy from "./components/scenes/ClinkoCaseStudy";
+import ProjectCivicCaseStudy from "./components/scenes/ProjectCivicCaseStudy";
 
 function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
   const location = useLocation();
@@ -27,10 +30,6 @@ function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
 
     let targetId = location.hash.replace("#", "");
 
-    if (!targetId && location.pathname !== "/") {
-      targetId = location.pathname.substring(1).toLowerCase();
-    }
-
     if (targetId) {
       console.log("Deep link detected. Target:", targetId);
       let attempts = 0;
@@ -39,18 +38,12 @@ function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
       const findAndScroll = () => {
         const element = document.getElementById(targetId);
         if (element) {
-          console.log(`Element '${targetId}' found. Scrolling...`);
-
-          // First attempt to jump immediately
           if (attempts === 0) {
             lenis.scrollTo(element, { offset: -100, immediate: true });
           }
-
-          // Use native scroll as a forceful backup, and update lenis on the way
           element.scrollIntoView({ behavior: "auto", block: "start" });
           if (attempts < MAX_ATTEMPTS) {
             attempts++;
-            // Re-trigger scroll every 100ms for 5 seconds to fight layout shifts from loading images
             setTimeout(() => {
               lenis.scrollTo(element, { offset: -100, immediate: true });
               findAndScroll();
@@ -61,17 +54,42 @@ function ScrollHandler({ lenis }: { lenis: Lenis | null }) {
           setTimeout(findAndScroll, 100);
         }
       };
-
-      // Start the aggressive scroll pinning
       findAndScroll();
-    } else if (location.pathname === "/" && !location.hash) {
+    } else {
       setTimeout(() => {
         lenis.scrollTo(0, { immediate: true });
-      }, 100);
+      }, 10);
     }
   }, [location, lenis]);
 
   return null;
+}
+
+function Home() {
+  return (
+    <>
+      <div id="home" />
+      <Scene1Spark />
+
+      <div id="intro" />
+      <Scene2Chaos />
+
+      <div id="projects" />
+      <Scene3Clarity />
+
+      <div id="products" />
+      <Scene5Products />
+
+      <div id="about" />
+      <SceneAbout />
+
+      <div id="skills" />
+      <SceneSkills />
+
+      <div id="contact" />
+      <Scene7CTA />
+    </>
+  );
 }
 
 export default function App() {
@@ -113,27 +131,34 @@ export default function App() {
         {/* Light Noise Overlay for Cinematic Texture */}
         <div className="fixed inset-0 pointer-events-none opacity-[0.035] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-50 mix-blend-overlay"></div>
 
-        <main className="relative z-10 w-full">
-          <div id="home" />
-          <Scene1Spark />
-
-          <div id="intro" />
-          <Scene2Chaos />
-
-          <div id="projects" />
-          <Scene3Clarity />
-
-          <div id="products" />
-          <Scene5Products />
-
-          <div id="about" />
-          <SceneAbout />
-
-          <div id="skills" />
-          <SceneSkills />
-
-          <div id="contact" />
-          <Scene7CTA />
+        <main className="relative z-10 w-full min-h-screen">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/washadmin"
+              element={
+                <div className="max-w-7xl mx-auto px-6 pb-32">
+                  <WashAdminCaseStudy />
+                </div>
+              }
+            />
+            <Route
+              path="/cliniko"
+              element={
+                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
+                  <ClinkoCaseStudy />
+                </div>
+              }
+            />
+            <Route
+              path="/projectcivic"
+              element={
+                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
+                  <ProjectCivicCaseStudy />
+                </div>
+              }
+            />
+          </Routes>
         </main>
       </div>
     </BrowserRouter>
