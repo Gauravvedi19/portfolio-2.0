@@ -67,9 +67,6 @@ function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience
         
         <div className="space-y-4">
           <div className="flex flex-wrap items-center gap-3">
-            <Link to="/" className="text-[10px] uppercase font-mono tracking-widest text-zinc-400 hover:text-white transition-colors bg-zinc-900/50 px-3 py-1 rounded-full border border-white/10 uppercase">
-              ← Back to Home
-            </Link>
             <span className="text-[10px] font-mono uppercase tracking-[0.3em] font-medium text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/20">
               Flagship Product
             </span>
@@ -363,8 +360,7 @@ function PostcardProductExperience() {
 
 export default function PostcardPage() {
   return (
-    <div className="min-h-screen bg-background relative selection:bg-white/20 overflow-hidden pt-32 pb-32">
-      <div className="fixed inset-0 pointer-events-none opacity-[0.035] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-50 mix-blend-overlay"></div>
+    <div className="relative overflow-hidden pt-32 pb-32">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <PostcardFlagship />
         <PostcardProductExperience />
