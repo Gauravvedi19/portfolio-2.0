@@ -185,38 +185,35 @@ function HeroSection({ onShowProductExperience }: { onShowProductExperience?: ()
       {/* RIGHT SIDE — HERO PRODUCT EXPERIENCE */}
       <div className="w-full xl:w-[55%] relative h-[600px] sm:h-[700px] xl:h-[800px] flex items-center justify-center perspective-[2000px]">
 
-        {/* LEFT PHONE */}
-        <motion.div 
-          style={{ y: sidePhonesY }}
-          onClick={() => setActiveIndex(2)}
-          className={`absolute left-[5%] sm:left-[10%] xl:left-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
-            ${activeIndex === 2 ? 'scale-100 z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[-4deg] hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.85] z-20 rotate-[-8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[-6deg] hover:scale-[0.88]'}
-          `}
-        >
-          <PhoneMockup imageSrc={CUSTOMER_MOCKUPS[2].image} isActive={activeIndex === 2} />
-        </motion.div>
+      {/* LEFT PHONE */}
+      <div 
+        onClick={() => setActiveIndex(2)}
+        className={`absolute left-[5%] sm:left-[10%] xl:left-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
+          ${activeIndex === 2 ? 'scale-100 z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[-4deg] hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.85] z-20 rotate-[-8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[-6deg] hover:scale-[0.88]'}
+        `}
+      >
+        <PhoneMockup imageSrc={CUSTOMER_MOCKUPS[2].image} isActive={activeIndex === 2} />
+      </div>
 
-        {/* RIGHT PHONE */}
-        <motion.div 
-          style={{ y: sidePhonesY }}
-          onClick={() => setActiveIndex(1)}
-          className={`absolute right-[5%] sm:right-[10%] xl:right-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
-            ${activeIndex === 1 ? 'scale-100 z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[4deg] hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.85] z-20 rotate-[8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[6deg] hover:scale-[0.88]'}
-          `}
-        >
-          <PhoneMockup imageSrc={CUSTOMER_MOCKUPS[1].image} isActive={activeIndex === 1} />
-        </motion.div>
+      {/* RIGHT PHONE */}
+      <div 
+        onClick={() => setActiveIndex(1)}
+        className={`absolute right-[5%] sm:right-[10%] xl:right-0 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
+          ${activeIndex === 1 ? 'scale-100 z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[4deg] hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.85] z-20 rotate-[8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[6deg] hover:scale-[0.88]'}
+        `}
+      >
+        <PhoneMockup imageSrc={CUSTOMER_MOCKUPS[1].image} isActive={activeIndex === 1} />
+      </div>
 
-        {/* CENTER PHONE */}
-        <motion.div 
-          style={{ y: centerPhoneY }}
-          onClick={() => setActiveIndex(0)}
-          className={`absolute transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
-            ${activeIndex === 0 ? 'scale-100 z-40 brightness-110 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rotate-0 hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.9] z-30 brightness-[0.8] hover:brightness-100 hover:scale-[0.95] rotate-0'}
-          `}
-        >
-          <PhoneMockup imageSrc={CUSTOMER_MOCKUPS[0].image} isActive={activeIndex === 0} />
-        </motion.div>
+      {/* CENTER PHONE */}
+      <div 
+        onClick={() => setActiveIndex(0)}
+        className={`absolute transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
+          ${activeIndex === 0 ? 'scale-100 z-40 brightness-110 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rotate-0 hover:scale-[1.02] hover:-translate-y-2' : 'scale-[0.9] z-30 brightness-[0.8] hover:brightness-100 hover:scale-[0.95] rotate-0'}
+        `}
+      >
+        <PhoneMockup imageSrc={CUSTOMER_MOCKUPS[0].image} isActive={activeIndex === 0} />
+      </div>
 
       </div>
     </motion.div>

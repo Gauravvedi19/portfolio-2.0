@@ -273,38 +273,35 @@ export function PostcardFlagship({ onShowProductExperience }: { onShowProductExp
       {/* RIGHT SIDE — HERO PRODUCT EXPERIENCE */}
       <div className="w-full xl:w-[55%] relative h-[600px] sm:h-[700px] xl:h-[800px] flex items-center justify-center perspective-[2000px]">
 
-        {/* LEFT PHONE (Discover) */}
-        <motion.div 
-          style={{ y: sidePhonesY }}
-          onClick={() => setActiveIndex(1)}
-          className={`absolute left-[5%] sm:left-[10%] xl:left-0 z-20 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
-            ${activeIndex === 1 ? 'scale-[0.85] z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[-4deg]' : 'scale-[0.75] rotate-[-8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[-6deg]'}
-          `}
-        >
-          <PhoneMockup imageSrc={POSTCARD_MOCKUPS[1].image} isActive={activeIndex === 1} />
-        </motion.div>
+      {/* LEFT PHONE (Discover) */}
+      <div 
+        onClick={() => setActiveIndex(1)}
+        className={`absolute left-[5%] sm:left-[10%] xl:left-0 z-20 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
+          ${activeIndex === 1 ? 'scale-[0.85] z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[-4deg]' : 'scale-[0.75] rotate-[-8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[-6deg]'}
+        `}
+      >
+        <PhoneMockup imageSrc={POSTCARD_MOCKUPS[1].image} isActive={activeIndex === 1} />
+      </div>
 
-        {/* RIGHT PHONE (Share) */}
-        <motion.div 
-          style={{ y: sidePhonesY }}
-          onClick={() => setActiveIndex(2)}
-          className={`absolute right-[5%] sm:right-[10%] xl:right-0 z-20 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
-            ${activeIndex === 2 ? 'scale-[0.85] z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[4deg]' : 'scale-[0.75] rotate-[8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[6deg]'}
-          `}
-        >
-          <PhoneMockup imageSrc={POSTCARD_MOCKUPS[2].image} isActive={activeIndex === 2} />
-        </motion.div>
+      {/* RIGHT PHONE (Share) */}
+      <div 
+        onClick={() => setActiveIndex(2)}
+        className={`absolute right-[5%] sm:right-[10%] xl:right-0 z-20 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
+          ${activeIndex === 2 ? 'scale-[0.85] z-40 brightness-110 shadow-[0_0_40px_rgba(255,255,255,0.15)] rotate-[4deg]' : 'scale-[0.75] rotate-[8deg] brightness-[0.6] hover:brightness-[0.8] hover:rotate-[6deg]'}
+        `}
+      >
+        <PhoneMockup imageSrc={POSTCARD_MOCKUPS[2].image} isActive={activeIndex === 2} />
+      </div>
 
-        {/* CENTER PHONE (Welcome/Brand) */}
-        <motion.div 
-          style={{ y: centerPhoneY }}
-          onClick={() => setActiveIndex(0)}
-          className={`absolute z-30 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
-            ${activeIndex === 0 ? 'scale-100 brightness-110 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rotate-0 translate-y-0' : 'scale-90 brightness-[0.7] hover:brightness-[0.9] hover:-translate-y-2'}
-          `}
-        >
-          <PhoneMockup imageSrc={POSTCARD_MOCKUPS[0].image} isActive={activeIndex === 0} />
-        </motion.div>
+      {/* CENTER PHONE (Welcome/Brand) */}
+      <div 
+        onClick={() => setActiveIndex(0)}
+        className={`absolute z-30 transition-all duration-700 ease-[0.23,1,0.32,1] cursor-pointer group origin-bottom transform-gpu rounded-[2.5rem]
+          ${activeIndex === 0 ? 'scale-100 brightness-110 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rotate-0 translate-y-0' : 'scale-90 brightness-[0.7] hover:brightness-[0.9] hover:-translate-y-2'}
+        `}
+      >
+        <PhoneMockup imageSrc={POSTCARD_MOCKUPS[0].image} isActive={activeIndex === 0} />
+      </div>
 
       </div>
     </motion.div>
