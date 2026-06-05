@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'motion/react';
 import { ArrowRight, Play } from 'lucide-react';
 import { ProjectModal } from '../ProjectModal';
 
@@ -49,11 +49,17 @@ function HeroSection() {
     offset: ["start end", "end start"]
   });
 
-  const centerPhoneY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
-  const sidePhonesY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const centerPhoneY = useTransform(smoothProgress, [0, 1], ["0%", "10%"]);
+  const sidePhonesY = useTransform(smoothProgress, [0, 1], ["0%", "-15%"]);
   
-  const enterOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
-  const enterY = useTransform(scrollYProgress, [0, 0.2], [100, 0]);
+  const enterOpacity = useTransform(smoothProgress, [0, 0.2], [0, 1]);
+  const enterY = useTransform(smoothProgress, [0, 0.2], [100, 0]);
 
   const activeContent = CUSTOMER_MOCKUPS[activeIndex];
 
