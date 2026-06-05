@@ -9,7 +9,8 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import Lenis from "lenis";
 import Scene1Spark from "./components/scenes/Scene1Spark";
 import Scene2Chaos from "./components/scenes/Scene2Chaos";
@@ -21,6 +22,7 @@ import Scene7CTA from "./components/scenes/Scene7CTA";
 import WashAdminCaseStudy from "./components/WashAdminCaseStudy";
 import ClinkoCaseStudy from "./components/scenes/ClinkoCaseStudy";
 import ProjectCivicCaseStudy from "./components/scenes/ProjectCivicCaseStudy";
+import { PostcardFlagship, PostcardProductExperience } from "./components/scenes/Scene5Products";
 
 let globalLenis: Lenis | null = null;
 
@@ -137,9 +139,28 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
+              path="/postcard"
+              element={
+                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
+                  <Link to="/" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-12 cursor-pointer hover:scale-105 active:scale-95 duration-200">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Portfolio
+                  </Link>
+                  <PostcardFlagship onShowProductExperience={() => {
+                    document.getElementById('product-experience-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }} />
+                  <PostcardProductExperience />
+                </div>
+              }
+            />
+            <Route
               path="/washadmin"
               element={
-                <div className="max-w-7xl mx-auto px-6 pb-32">
+                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
+                  <Link to="/" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-12 cursor-pointer hover:scale-105 active:scale-95 duration-200">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Portfolio
+                  </Link>
                   <WashAdminCaseStudy />
                 </div>
               }
@@ -148,6 +169,10 @@ export default function App() {
               path="/cliniko"
               element={
                 <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
+                  <Link to="/" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-12 cursor-pointer hover:scale-105 active:scale-95 duration-200">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Portfolio
+                  </Link>
                   <ClinkoCaseStudy />
                 </div>
               }
@@ -156,6 +181,10 @@ export default function App() {
               path="/projectcivic"
               element={
                 <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
+                  <Link to="/" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-12 cursor-pointer hover:scale-105 active:scale-95 duration-200">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Portfolio
+                  </Link>
                   <ProjectCivicCaseStudy />
                 </div>
               }

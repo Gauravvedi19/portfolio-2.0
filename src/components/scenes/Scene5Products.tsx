@@ -158,7 +158,7 @@ const POSTCARD_MOCKUPS = [
   }
 ];
 
-function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience?: () => void }) {
+export function PostcardFlagship({ onShowProductExperience }: { onShowProductExperience?: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   
@@ -519,7 +519,7 @@ video: "/videos/community-browsing.mp4"
   
 ];
 
-function PostcardProductExperience() {
+export function PostcardProductExperience() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
   return (
