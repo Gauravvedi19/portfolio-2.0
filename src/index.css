@@ -90,6 +90,8 @@
 
 html {
   background-color: hsl(var(--background));
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 body {
@@ -99,6 +101,21 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+}
+
+/* Custom Cursor */
+body.custom-cursor,
+body.custom-cursor a,
+body.custom-cursor button,
+body.custom-cursor [role="button"],
+body.custom-cursor input,
+body.custom-cursor select,
+body.custom-cursor textarea,
+body.custom-cursor .cursor-pointer {
+  cursor: none !important;
 }
 
 /* Animations that are hidden/opacity-0 initially and animation-fill-mode is forwards */

@@ -23,6 +23,7 @@ import WashAdminCaseStudy from "./components/WashAdminCaseStudy";
 import ClinkoCaseStudy from "./components/scenes/ClinkoCaseStudy";
 import ProjectCivicCaseStudy from "./components/scenes/ProjectCivicCaseStudy";
 import { PostcardFlagship, PostcardProductExperience } from "./components/scenes/Scene5Products";
+import CustomCursor from "./components/CustomCursor";
 
 let globalLenis: Lenis | null = null;
 
@@ -125,6 +126,7 @@ export default function App() {
     <BrowserRouter>
       <ScrollHandler />
       <div className="relative min-h-screen bg-background text-foreground antialiased selection:bg-white/20">
+        <CustomCursor />
         {/* Premium Ambient Background Glow (Aurora Blue) */}
         <div className="fixed inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen overflow-hidden">
           <div className="absolute -inset-[10%] bg-[radial-gradient(ellipse_60%_60%_at_50%_-10%,rgba(56,189,248,0.25),rgba(255,255,255,0))] animate-aurora-1" />
