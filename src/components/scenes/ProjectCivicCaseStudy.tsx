@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'motion/react';
 import { ArrowRight, Play } from 'lucide-react';
-import { ProjectModal } from '../ProjectModal';
 
 export default function ProjectCivicCaseStudy() {
   return (
@@ -42,7 +41,6 @@ const CUSTOMER_MOCKUPS = [
 function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -129,33 +127,6 @@ function HeroSection() {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap items-center gap-4 pt-4">
-          <button onClick={() => setIsModalOpen(true)} className="group relative px-6 py-3 bg-white text-black font-medium text-sm rounded-full overflow-hidden transition-transform hover:scale-[1.02] active:scale-[0.98]">
-            <span className="relative z-10 flex items-center gap-2">
-              View Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </span>
-            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-          </button>
-          
-          <button className="px-6 py-3 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.1] text-white font-medium text-sm rounded-full transition-colors flex items-center gap-2">
-            <Play className="w-4 h-4 text-white/70" /> Watch Demo
-          </button>
-        </div>
-
-        <ProjectModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          title="Project Civic"
-          links={{
-            github: "#",
-            portal: "#",
-            demoEmail: "demo@civictech.com",
-            demoPassword: "12345678",
-            appDownload: "#",
-          }}
-        />
       </div>
 
       {/* RIGHT SIDE — HERO PRODUCT EXPERIENCE */}

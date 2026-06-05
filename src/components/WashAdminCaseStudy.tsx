@@ -112,7 +112,7 @@ function HeroSection({ onShowProductExperience }: { onShowProductExperience?: ()
           </div>
           
           <h3 className="font-display text-5xl sm:text-7xl text-white tracking-tight">
-            WashAdmin
+            WashDesk
           </h3>
           <h4 className="font-display text-2xl sm:text-3xl text-white/80 italic leading-snug">
             “A full-stack mobile + operations platform for managing bookings, subscriptions, bays, and business operations in real time.”
@@ -177,7 +177,7 @@ function HeroSection({ onShowProductExperience }: { onShowProductExperience?: ()
           <ProjectModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            title="WashAdmin"
+            title="WashDesk"
             links={{
               github: "https://github.com/Gauravvedi19/carwash-app.git",
               portal: "https://admin-portal-carwash.vercel.app/",

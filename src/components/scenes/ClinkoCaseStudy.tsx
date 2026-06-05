@@ -149,7 +149,7 @@ function HeroSection({ isExperienceOpen, onToggleExperience }: { isExperienceOpe
           </div>
           
           <h3 className="font-display text-5xl sm:text-7xl text-white tracking-tight">
-            Clinko
+            Cliniko
           </h3>
           <h4 className="font-display text-2xl sm:text-3xl text-white/80 italic leading-snug">
             “A full-scale clinical ecosystem for patient care, AI prescription digitization, and operational workflows.”
@@ -206,7 +206,7 @@ function HeroSection({ isExperienceOpen, onToggleExperience }: { isExperienceOpe
           <ProjectModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-             title="Clinko"
+             title="Cliniko"
              links={{
                github: "https://github.com/Gauravvedi19/clinic_management_app-dev.git",
                portal: "https://clinic-management-portal-vert.vercel.app/",
