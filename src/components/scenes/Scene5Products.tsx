@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'motion/react';
 import { Play, ArrowRight, X, Info, Plus } from 'lucide-react';
 import WashAdminCaseStudy from '../WashAdminCaseStudy';
 import ClinkoCaseStudy from './ClinkoCaseStudy';
@@ -40,10 +40,16 @@ export default function Scene5Products() {
     offset: ["start end", "end start"]
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-  const y2 = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
-  const rotate1 = useTransform(scrollYProgress, [0, 1], [0, 90]);
-  const rotate2 = useTransform(scrollYProgress, [0, 1], [-45, 45]);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const y1 = useTransform(smoothProgress, [0, 1], ["-10%", "10%"]);
+  const y2 = useTransform(smoothProgress, [0, 1], ["20%", "-20%"]);
+  const rotate1 = useTransform(smoothProgress, [0, 1], [0, 90]);
+  const rotate2 = useTransform(smoothProgress, [0, 1], [-45, 45]);
 
   return (
     <section ref={containerRef} className="relative w-full pb-32 overflow-hidden z-10">
@@ -167,11 +173,17 @@ export function PostcardFlagship({ onShowProductExperience }: { onShowProductExp
     offset: ["start end", "end start"]
   });
 
-  const centerPhoneY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
-  const sidePhonesY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  const centerPhoneY = useTransform(smoothProgress, [0, 1], ["0%", "10%"]);
+  const sidePhonesY = useTransform(smoothProgress, [0, 1], ["0%", "-15%"]);
   
-  const enterOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
-  const enterY = useTransform(scrollYProgress, [0, 0.2], [100, 0]);
+  const enterOpacity = useTransform(smoothProgress, [0, 0.2], [0, 1]);
+  const enterY = useTransform(smoothProgress, [0, 0.2], [100, 0]);
 
   const activeContent = POSTCARD_MOCKUPS[activeIndex];
 
