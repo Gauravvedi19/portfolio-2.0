@@ -88,6 +88,10 @@
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+html {
+  background-color: hsl(var(--background));
+}
+
 body {
   font-family: var(--font-body);
   background-color: hsl(var(--background));
