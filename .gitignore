@@ -134,3 +134,18 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Client project source: holds .env files, service-account keys and a production database dump
+tender-9-app/
+
+# Not part of the site: the Ariane app source (with its .env files), raw recordings, model sources
+ar-prototype/
+videos-original/
+apple-iphone-18-pro-max-burgundy-2026/
+/screen-*.mp4
+/Gaurav_Vedi_Resume_*.pdf
+.claude/settings.local.json
+
+# Kept local: working notes and old resume drafts
+HANDOFF.md
+resume/resume-v*-backup.html

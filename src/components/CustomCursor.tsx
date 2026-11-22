@@ -8,7 +8,7 @@ export default function CustomCursor() {
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  
+
   const springConfig = { damping: 25, stiffness: 400, mass: 0.5 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
@@ -18,11 +18,11 @@ export default function CustomCursor() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     const checkMobile = () => {
       setIsMobile(window.matchMedia('(max-width: 768px)').matches);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
 

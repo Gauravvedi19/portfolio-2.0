@@ -2,30 +2,12 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'motion/react';
 import { Play, ArrowRight, ArrowDown, X, Maximize2, Plus } from 'lucide-react';
 import { ProjectModal } from '../ProjectModal';
+import { VideoPlayer as LazyVideoPlayer } from '../VideoPlayer';
 
-const VideoPlayer = React.forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLVideoElement>>(({ src, className, onLoadedData, ...props }, ref) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(false);
-  }, [src]);
-
-  return (
-    <>
-      <div className="absolute inset-0 bg-zinc-900 animate-pulse z-0" />
-      <video
-        ref={ref}
-        src={src}
-        onLoadedData={(e) => {
-          setIsLoaded(true);
-          onLoadedData?.(e);
-        }}
-        {...props}
-        className={`${className} transition-opacity duration-700 ${isLoaded ? 'opacity-95' : 'opacity-0'}`}
-      />
-    </>
-  );
-});
+// Cliniko's videos settle a touch under full opacity.
+const VideoPlayer = React.forwardRef<HTMLVideoElement, React.ComponentProps<typeof LazyVideoPlayer>>((props, ref) => (
+  <LazyVideoPlayer ref={ref} loadedOpacity="opacity-95" {...props} />
+));
 VideoPlayer.displayName = 'VideoPlayer';
 
 export default function ClinkoCaseStudy() {

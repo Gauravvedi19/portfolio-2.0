@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@400;500;600&display=swap');
+/* Ariane Studio's own type, for its Welcome screen on the 3D phone. */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -70,7 +72,7 @@
 }
 
 :root {
-  --background: 222 47% 4%;
+  --background: 240 12% 3%;
   --foreground: 0 0% 98%;
   --muted-foreground: 220 20% 60%;
 
@@ -151,6 +153,13 @@ body.custom-cursor .cursor-pointer {
 
 .cinematic-overlay {
   background: linear-gradient(180deg, rgba(4, 10, 26, 0.4) 0%, rgba(4, 10, 26, 0.8) 100%);
+}
+
+/* Keyboard focus that's visible on the dark stage, and nothing for mouse clicks. */
+:focus-visible {
+  outline: 1.5px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 3px;
+  border-radius: 999px;
 }
 
 /* Custom Scrollbar for premium feel */

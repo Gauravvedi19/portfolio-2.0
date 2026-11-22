@@ -3,33 +3,11 @@ import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'mot
 import { Play, ArrowRight, X, Info, Plus } from 'lucide-react';
 import WashAdminCaseStudy from '../WashAdminCaseStudy';
 import ClinkoCaseStudy from './ClinkoCaseStudy';
+import ArianeStudioCaseStudy from './ArianeStudioCaseStudy';
 
 import ProjectCivicCaseStudy from './ProjectCivicCaseStudy';
 
-const VideoPlayer = React.forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLVideoElement>>(({ src, className, onLoadedData, ...props }, ref) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(false);
-  }, [src]);
-
-  return (
-    <>
-      <div className="absolute inset-0 bg-zinc-900 animate-pulse z-0" />
-      <video
-        ref={ref}
-        src={src}
-        onLoadedData={(e) => {
-          setIsLoaded(true);
-          onLoadedData?.(e);
-        }}
-        {...props}
-        className={`${className} transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-      />
-    </>
-  );
-});
-VideoPlayer.displayName = 'VideoPlayer';
+import { VideoPlayer } from '../VideoPlayer';
 
 export default function Scene5Products() {
   const [showProductExperience, setShowProductExperience] = useState(false);
@@ -127,6 +105,9 @@ export default function Scene5Products() {
                 <PostcardProductExperience />
               </motion.div>
             )}
+          </div>
+          <div id="arianestudio">
+            <ArianeStudioCaseStudy />
           </div>
           <div id="washadmin">
             <WashAdminCaseStudy />

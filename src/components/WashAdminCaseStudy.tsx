@@ -2,31 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'motion/react';
 import { Play, ArrowRight, ArrowDown, X, Maximize2, Plus } from 'lucide-react';
 import { ProjectModal } from './ProjectModal';
-
-const VideoPlayer = React.forwardRef<HTMLVideoElement, React.VideoHTMLAttributes<HTMLVideoElement>>(({ src, className, onLoadedData, ...props }, ref) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(false);
-  }, [src]);
-
-  return (
-    <>
-      <div className="absolute inset-0 bg-zinc-900 animate-pulse z-0" />
-      <video
-        ref={ref}
-        src={src}
-        onLoadedData={(e) => {
-          setIsLoaded(true);
-          onLoadedData?.(e);
-        }}
-        {...props}
-        className={`${className} transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-      />
-    </>
-  );
-});
-VideoPlayer.displayName = 'VideoPlayer';
+import { VideoPlayer } from './VideoPlayer';
 
 export default function WashAdminCaseStudy() {
   const [isExpanded, setIsExpanded] = useState(false);

@@ -8,63 +8,59 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation, Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import React, { Suspense, lazy, useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Lenis from "lenis";
-import Scene1Spark from "./components/scenes/Scene1Spark";
-import Scene2Chaos from "./components/scenes/Scene2Chaos";
-import Scene3Clarity from "./components/scenes/Scene3Clarity";
-import Scene5Products from "./components/scenes/Scene5Products";
-import SceneAbout from "./components/scenes/SceneAbout";
-import SceneSkills from "./components/scenes/SceneSkills";
-import Scene7CTA from "./components/scenes/Scene7CTA";
-import WashAdminCaseStudy from "./components/WashAdminCaseStudy";
-import ClinkoCaseStudy from "./components/scenes/ClinkoCaseStudy";
-import ProjectCivicCaseStudy from "./components/scenes/ProjectCivicCaseStudy";
-import { PostcardFlagship, PostcardProductExperience } from "./components/scenes/Scene5Products";
+import Hero from "./components/showcase/Hero";
+import ProductShowcase from "./components/showcase/ProductShowcase";
+import Capabilities from "./components/showcase/Capabilities";
+import Closing from "./components/showcase/Closing";
+import HomeBackdrop from "./components/showcase/HomeBackdrop";
+import TopBar from "./components/showcase/TopBar";
+import Preloader from "./components/showcase/Preloader";
+import { setLenis } from "./lib/scroll";
+import { jumpToProduct } from "./components/showcase/phoneStore";
+import { PRODUCTS } from "./showcase/products";
+import CaseStudyPage from "./components/case/CaseStudyPage";
 import CustomCursor from "./components/CustomCursor";
+import { PageTransition } from "./components/PageTransition";
+
+// three.js is the heaviest thing on the page, so the 3D stage is its own chunk — but its download
+// starts now, alongside the page's, rather than once the first page has rendered.
+const stageChunk = import("./components/showcase/PhoneStage");
+const PhoneStage = lazy(() => stageChunk);
 
 let globalLenis: Lenis | null = null;
 
+/**
+ * Where a new page opens: a project's place in the line-up (coming back from its case study), a
+ * #section, or the top. It waits for its target to exist, then scrolls there once. It used to keep
+ * re-scrolling every 100ms for five seconds, by two different offsets: the page jumped back and forth,
+ * and any scroll the visitor began was snatched back.
+ */
 function ScrollHandler() {
   const location = useLocation();
 
   useEffect(() => {
-    if (!globalLenis) return;
+    const lenis = globalLenis;
+    if (!lenis) return;
+    const product = (location.state as { product?: string } | null)?.product;
+    const index = product ? PRODUCTS.findIndex((p) => p.id === product) : -1;
+    const targetId = location.hash.replace("#", "");
 
-    let targetId = location.hash.replace("#", "");
-
-    if (targetId) {
-      console.log("Deep link detected. Target:", targetId);
-      let attempts = 0;
-      const MAX_ATTEMPTS = 50;
-
-      const findAndScroll = () => {
-        const element = document.getElementById(targetId);
-        if (element) {
-          if (attempts === 0) {
-            globalLenis!.scrollTo(element, { offset: -100, immediate: true });
-          }
-          element.scrollIntoView({ behavior: "auto", block: "start" });
-          if (attempts < MAX_ATTEMPTS) {
-            attempts++;
-            setTimeout(() => {
-              globalLenis!.scrollTo(element, { offset: -100, immediate: true });
-              findAndScroll();
-            }, 100);
-          }
-        } else if (attempts < MAX_ATTEMPTS) {
-          attempts++;
-          setTimeout(findAndScroll, 100);
-        }
-      };
-      findAndScroll();
-    } else {
-      setTimeout(() => {
-        globalLenis!.scrollTo(0, { immediate: true });
-      }, 10);
-    }
+    let timer = 0;
+    let tries = 0;
+    const attempt = () => {
+      // The line-up installs its jump once it has mounted.
+      if (index >= 0 && jumpToProduct(index, { immediate: true })) return;
+      const element = targetId ? document.getElementById(targetId) : null;
+      if (index < 0 && element) return lenis.scrollTo(element, { immediate: true, force: true });
+      if (index < 0 && !targetId) return lenis.scrollTo(0, { immediate: true, force: true });
+      if (++tries < 40) timer = window.setTimeout(attempt, 50);
+    };
+    // After the new page has laid out.
+    timer = window.setTimeout(attempt, 10);
+    return () => window.clearTimeout(timer);
   }, [location]);
 
   return null;
@@ -73,26 +69,16 @@ function ScrollHandler() {
 function Home() {
   return (
     <>
-      <div id="home" />
-      <Scene1Spark />
-
-      <div id="intro" />
-      <Scene2Chaos />
-
-      <div id="projects" />
-      <Scene3Clarity />
-
-      <div id="products" />
-      <Scene5Products />
-
-      <div id="about" />
-      <SceneAbout />
-
-      <div id="skills" />
-      <SceneSkills />
-
-      <div id="contact" />
-      <Scene7CTA />
+      <a href="#work" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[300] focus:px-4 focus:py-2 focus:rounded-full focus:bg-white focus:text-black text-sm">
+        Skip to work
+      </a>
+      <Preloader />
+      <HomeBackdrop />
+      <TopBar />
+      <Hero />
+      <ProductShowcase />
+      <Capabilities />
+      <Closing />
     </>
   );
 }
@@ -106,6 +92,7 @@ export default function App() {
     });
 
     globalLenis = lenisInstance;
+    setLenis(lenisInstance);
 
     let rafId: number;
     function raf(time: number) {
@@ -118,6 +105,7 @@ export default function App() {
     return () => {
       lenisInstance.destroy();
       globalLenis = null;
+      setLenis(null);
       cancelAnimationFrame(rafId);
     };
   }, []);
@@ -125,72 +113,27 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollHandler />
+      <PageTransition />
       <div className="relative min-h-screen bg-background text-foreground antialiased selection:bg-white/20">
         <CustomCursor />
-        {/* Premium Ambient Background Glow (Aurora Blue) */}
-        <div className="fixed inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen overflow-hidden">
-          <div className="absolute -inset-[10%] bg-[radial-gradient(ellipse_60%_60%_at_50%_-10%,rgba(56,189,248,0.25),rgba(255,255,255,0))] animate-aurora-1" />
-          <div className="absolute -inset-[10%] bg-[radial-gradient(ellipse_60%_60%_at_10%_110%,rgba(14,165,233,0.2),rgba(255,255,255,0))] animate-aurora-2" />
-          <div className="absolute -inset-[10%] bg-[radial-gradient(ellipse_60%_60%_at_90%_50%,rgba(2,132,199,0.2),rgba(255,255,255,0))] animate-aurora-3" />
-        </div>
 
         {/* Light Noise Overlay for Cinematic Texture */}
         <div className="fixed inset-0 pointer-events-none opacity-[0.035] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-50 mix-blend-overlay"></div>
 
         <main className="relative z-10 w-full min-h-screen">
+          {/* The one 3D iPhone, kept from page to page: a case study reuses the phone, its shaders and
+              its light the home page already built, instead of starting a new 3D canvas. */}
+          <Suspense fallback={null}>
+            <PhoneStage />
+          </Suspense>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/postcard"
-              element={
-                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
-                  <Link to="/" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-12 cursor-pointer hover:scale-105 active:scale-95 duration-200">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Portfolio
-                  </Link>
-                  <PostcardFlagship onShowProductExperience={() => {
-                    document.getElementById('product-experience-section')?.scrollIntoView({ behavior: 'smooth' });
-                  }} />
-                  <PostcardProductExperience />
-                </div>
-              }
-            />
-            <Route
-              path="/washadmin"
-              element={
-                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
-                  <Link to="/" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-12 cursor-pointer hover:scale-105 active:scale-95 duration-200">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Portfolio
-                  </Link>
-                  <WashAdminCaseStudy />
-                </div>
-              }
-            />
-            <Route
-              path="/cliniko"
-              element={
-                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
-                  <Link to="/" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-12 cursor-pointer hover:scale-105 active:scale-95 duration-200">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Portfolio
-                  </Link>
-                  <ClinkoCaseStudy />
-                </div>
-              }
-            />
-            <Route
-              path="/projectcivic"
-              element={
-                <div className="max-w-7xl mx-auto px-6 pb-32 pt-32">
-                  <Link to="/" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-12 cursor-pointer hover:scale-105 active:scale-95 duration-200">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Portfolio
-                  </Link>
-                  <ProjectCivicCaseStudy />
-                </div>
-              }
-            />
+            <Route path="/postcard" element={<CaseStudyPage id="postcard" />} />
+            <Route path="/tender9" element={<CaseStudyPage id="tender9" />} />
+            <Route path="/arianestudio" element={<CaseStudyPage id="arianestudio" />} />
+            <Route path="/crave" element={<CaseStudyPage id="crave" />} />
+            <Route path="/washadmin" element={<CaseStudyPage id="washadmin" />} />
+            <Route path="/cliniko" element={<CaseStudyPage id="cliniko" />} />
           </Routes>
         </main>
       </div>
